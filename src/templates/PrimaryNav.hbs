@@ -1,0 +1,43 @@
+<ul class="nav navbar-nav navbar-left">
+	{{#if item}}
+	<li class="sourceLoader navbar-text">
+		Konstruktion: 
+	</li>
+	<li class="sourceDisplay dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ auswahl }} <span class="caret"></span></a>
+		<ul id="constructionList" class="dropdown-menu">
+			{{#each item}}
+			<li><a href="#{{ sheet }}">{{ name }}</a></li>
+			{{/each}}
+		</ul>
+	</li>
+	{{#if loading}}
+	<li class="sourceLoader navbar-text spinner">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</li>
+	<li class="sourceLoader navbar-text">
+		wird geladen...
+	</li>
+	{{/if}}
+	{{else}}
+	{{#if loading}}
+	<li class="sourceLoader navbar-text spinner">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</li>
+	<li class="sourceLoader navbar-text">
+		Konstuktionen werden geladen...
+	</li>
+	{{else}}
+	<li class="navbar-text">
+		<b class="text-danger">Keine Datenquelle ausgewählt!</b>
+	</li>
+	{{/if}}
+	{{/if}}
+</ul>
+<form class="navbar-form navbar-right" role="search">
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#dataSourceModal">Datenquelle wechseln</button>
+</form>

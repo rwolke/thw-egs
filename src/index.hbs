@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>EGS Visualisierung</title>
+		<meta charset="utf-8">
+		<style>
+			.navbar { margin-bottom:0 !important; }
+			#display { position: fixed; top: 50px; left:0; background: #fed; right:0; bottom: 50px; }
+			.spinner { width: 70px; text-align: center; line-height:1; }
+			.spinner > div { 
+				width: 16px; height: 16px; background-color: #333; 
+				border-radius: 100%; display: inline-block;
+				-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both; 
+				animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+			}
+			.spinner .bounce1 { -webkit-animation-delay: -0.32s; animation-delay: -0.32s; }
+			.spinner .bounce2 { -webkit-animation-delay: -0.16s; animation-delay: -0.16s; }
+			@-webkit-keyframes sk-bouncedelay { 
+				0%, 80%, 100% { -webkit-transform: scale(0) } 
+				40% { -webkit-transform: scale(1.0) } 
+			}
+			@keyframes sk-bouncedelay { 
+				0%, 80%, 100% { -webkit-transform: scale(0); transform: scale(0); } 
+				40% {  -webkit-transform: scale(1.0); transform: scale(1.0); }
+			}
+		</style>
+	</head>
+	<body data-defaultSource="https://docs.google.com/spreadsheets/d/1z0wPbfVoUCu6buGLWJPDcxtESDJJXNRvjhKQt6fDDqQ/edit#gid=0">
+		<div class="container-fluid">
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#" aria-expanded="false">
+							<span class="sr-only">Navigation einblenden</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">EGS Betrachter</a>
+					</div>
+					<div class="collapse navbar-collapse" id="primaryNav">
+					</div>
+				</div>
+			</nav>
+			
+			<div id="display"></div>
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#" aria-expanded="false">
+							<span class="sr-only">Navigation einblenden</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="secondaryNav">
+					</div>
+			</nav>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="dataSourceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Adresse der Datenquelle</h4>
+					</div>
+					<div class="modal-body">
+						<div id="dataSourceModal-error" style="display:none" class="alert alert-danger fade in" role="alert">
+							Die eingegebene Datenquelle ist kein gültiger Link zu einer Google Tabelle!
+						</div>
+						<p>
+							Die Datenquelle muss eine URL zu einer Google Tabelle sein. 
+							Diese Tabelle muss nach dem Muster unter ... aufgebaut sein. 
+							Sie enthält eine Übersicht mehrerer Konstruktionen mit Links zur der genauen Spezifikation.
+						</p>
+						<div class="input-group">
+							<textarea id="dataSourceModal-input" class="form-control custom-control" rows="2" placeholder="URL zu Google Tabelle (aus Adresszeile kopiert)" style="resize:vertical"></textarea>
+							<a id="dataSourceModal-reset" class="input-group-addon btn btn-default" type="button">Zurücksetzen</a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="dataSourceModal-cancel" type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+						<button id="dataSourceModal-save" type="button" class="btn btn-primary" data-dismiss="modal">speichern &amp; laden</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="js/lib.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</body>
+</html>
