@@ -21,7 +21,7 @@ EGS_Elements = require 'egs/EGS_Elements'
 
 App = class MainApp extends Backbone.Router
 	view: {}
-	egsElementProvider: new EGS_Elements
+	egsElementProvider: null
 	dataSourceList: null
 	activeSource: null
 	activeConstruct: null
@@ -69,6 +69,7 @@ App = class MainApp extends Backbone.Router
 		@dataSourceList = new DataSourceListCollection [{source: data.defaultSource}], 
 			app: @
 		
+		@egsElementProvider = new EGS_Elements();
 		PrimaryNavView = require "views/PrimaryNav"
 		@view.PrimaryNav = new PrimaryNavView @dataSourceList
 		SecondaryNavView = require "views/SecondaryNav"
@@ -87,12 +88,13 @@ App = class MainApp extends Backbone.Router
 	
 google = require "google"
 
-google.load 'visualization', '1', 
-	packages: ['table']
-
-google.setOnLoadCallback ->
+google.setOnLoadCallback (e)->
 	body = document.getElementsByTagName('body')[0]
-	return if window.App 
+	return if window.App  ## singleton behaviour
 	window.App = new App
 		defaultSource: body.getAttribute 'data-defaultSource'
 	do window.App.start
+
+google.load 'visualization', '1', 
+	packages: ['table']
+

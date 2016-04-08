@@ -39,7 +39,7 @@ module.exports = Backbone.View.extend
 	
 	startup: ->
 		@setStep 0
-		setTimeout (=> setInterval (=> do @timeTrigger), 1000), 2000
+		setInterval (=> do @timeTrigger), 1000
 		@app.view.EGS.updateConstruct @step 
 		@app.view.EGS.setTurnRate @rotRate
 	
@@ -61,7 +61,7 @@ module.exports = Backbone.View.extend
 		do @update
 	
 	timeTrigger: ->
-		@incrStep 1 if @stepper and @counter++ %% @stepper is 0
+		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
 	
 	initialize: (@app) -> 
 		do @render
@@ -89,5 +89,4 @@ module.exports = Backbone.View.extend
 			rotMode: if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
 			rate: @rotRate
 		@el.innerHTML = @template tpl
-		do $("[data-toggle=dropdown]", @$el).dropdown
 		

@@ -42,6 +42,4 @@ module.exports = Backbone.View.extend
 			tpl.loading = true
 		
 		@el.innerHTML = @template tpl
-		do $("[data-toggle=dropdown]", @$el).dropdown
 		
-			
