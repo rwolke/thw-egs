@@ -4,21 +4,21 @@ Diese WebApp visualisiert den Aufbau von EGS Konstruktionen.
 
 ## Zweck und Nutzen
 
-Der Aufbau von Gerüstkonstuktionen ist nicht immer trivial, deshalb kann eine Visualsierung die theoretische Ausbildung unterstützen. Der Aufbau kann in eine Vielzahl von Schritten zerlegt werden und Bauteile farblich hervorgehoben werden. Die automatische Rotation bzw. die manuelle Betrachtung von allen Seiten erlauben ein schnelleres Verständnis. 
+Der Aufbau von Gerüstkonstuktionen ist nicht immer trivial, deshalb kann eine Visualsierung die theoretische Ausbildung unterstützen. Der Aufbau kann in eine Vielzahl von Schritten zerlegt und Bauteile farblich hervorgehoben werden. Die automatische Rotation bzw. die manuelle Betrachtung von allen Seiten erlauben ein schnelleres Verständnis. 
 
-Wichtig ist, dass die Visualisierung in erster Linie ein Hilfsmittel für die Ausbildung ist. So können verschiedene Aufbauweisen relativ einfach verglichen werden.
+Wichtig ist, dass die Visualisierung in erster Linie ein Hilfsmittel für die Ausbildung ist, z.B. um verschiedene Aufbauweisen relativ einfach zu vergleichen. Die hinterlegten Pläne dürfen aber keinesfalls blind für reale Aufbauten genutzt werden. 
 
-Die hinterlegten Pläne dürfen aber keinesfalls blind für reale Aufbauten genutzt werden. 
+In einem weiteren Entwicklungsschritt könnten aus der Aufbauanleitung auch Materiallisten abgeleitet werden. Zunächst, ob die Konstruktion mit dem vorhanden Material lösbar ist, und im zweiten Schritt in welcher Reihenfolge welches Teile benötigt werden.
 
 ## Bedienung
 
-Oben kann die Konstruktion aus der akutell hinterlegten Datenquelle ausgewählt werden. Diese wird dann sofort geladen. Alternativ kann die Datenquelle (Google Tabelle) über den Button *Datenquelle wechseln* umgeschaltet werden.
+In der WebApp kann in der oberen Navigationszeile die Konstruktion aus der aktuell hinterlegten Datenquelle ausgewählt werden. Alternativ kann die Datenquelle (Google Tabelle) über den Button *Datenquelle wechseln* umgeschaltet werden.
 
-Im unteren Teil befinden sich die Bedienelemente für die Aufbauschritte und Anzeige. 
+Im unteren Teil der Apo befinden sich die Bedienelemente für die Aufbauschritte und Anzeige. 
 
-**Aufbauschritte:** Standardmäßig wechselt die App alle 5 sec zum nächsten Aufbauschritt. Dieses Interval kann hier geändert, oder die Automatik ganz deaktiviert werden. Ebenso können die schritte manuell angewählt werden.
+**Aufbauschritte:** Standardmäßig wechselt die App alle 5 sec zum nächsten Aufbauschritt. Dieses Interval kann geändert, oder die Automatik ganz deaktiviert werden. Ebenso können die Schritte manuell angewählt werden.
 
-**Rotation:** Standardmäßig rotiert die Konstruktion mit 2 Umdrehungen pro Sekunde. Diese Geschwindigkeit kann hier angepasst werden oder die Rotation ganz gestoppt werden. In diesem Fall kann die Kamera manuell rotiert werden und gezielt Bereiche herangezoom werden.
+**Rotation:** Standardmäßig rotiert die Konstruktion mit 2 Umdrehungen pro Minute. Diese Geschwindigkeit kann angepasst oder die Rotation ganz gestoppt werden. In diesem Fall ist es möglich die Kamera manuell zu rotieren und gezielt Bereiche heranzuzoomen.
 
 
 ## Hinterlegen von Konstuktionen
@@ -29,31 +29,31 @@ Beispieldatei: https://docs.google.com/spreadsheets/d/1z0wPbfVoUCu6buGLWJPDcxtES
 
 Der Aufbau nach diesem Schema sollte überwiegend selbsterklärend sein, deshalb hier nur einige Stichpunkte:
 
-- Konstruktionsliste - gid-Spalte: Die **gid** ist die Zahl die in der Adresszeile bei Wechsel auf ein bestimmtes Tabellenblatt angezeigt wird. Über diesen Eintrag erfährt das Programm aus welchem Blatt die Konstruktion geladen werden soll. Dies geschieht nicht über den Namen des Blattes!
-- Konstruktion - Anzeige: Diese Spalte hat folgenden Aufbau (RegExp-Format) VON(-BIS)?(:#farbe)?(,VON(-BIS)?(:#farbe)?)*  zum Beispiel:
+- Konstruktionsliste - gid-Spalte: Die **gid** ist die Zahl, die in der Adresszeile bei jedem Tabellenblatt angezeigt wird. Über diese Ziffernfolge erfährt das Programm aus welchem Blatt die Konstruktion geladen werden soll. Dies geschieht nicht über den Namen des Blattes!
+- Konstruktion - Anzeige: Diese Spalte gibt an bei welchen Schritten das Element angezeigt werden soll, und ggf. in welcher besonderen Farbe. Sie hat folgenden Aufbau (RegExp-Format) VON(-BIS)?(:#farbe)?(,VON(-BIS)?(:#farbe)?)*  zum Beispiel:
   - "1" - Zeige dieses Elemente nur in Schritt 1
   - "1-3" - Zeige dieses Element in den Schritten 1 bis 3
   - "1-3,5-" - Zeige dieses Element in den Schritten 1 bis 3 und ab 5 (bis zum Ende)
   - "2-3:#fff,4-" - Zeige dieses Element in den Schritten 2 und 3 in der Farbe Weiß (#fff), ab 4 in der normalen Farbe
-- Konstruktion - Farbe: Diese Spalte muss eine Farbangabe im [langen oder kurzen hexadezimalen Format](https://de.wikipedia.org/wiki/Hexadezimale_Farbdefinition) haben. 
+- Konstruktion - Farbe: Diese Spalte muss eine Farbangabe im [langen oder kurzen hexadezimalen Format](https://de.wikipedia.org/wiki/Hexadezimale_Farbdefinition) enthalten.
 - Konstruktion - Element siehe *Liste der gülten Elemente*
 - Konstruktion - Richtung: In welche Richtung z.B. ein Riegel gehen soll
 - Konstruktion - Besonderheit: 
-	- V - Vertikalsteil: hier kann *oRV* eingetragen werden, wenn der Vertikalstiel keinen Rohrverbinder haben soll. 
+	- V - Vertikalstiel: hier kann *oRV* eingetragen werden, wenn der Vertikalstiel keinen Rohrverbinder haben soll. 
 	- D - Diagonale: bei einer Diagonale gibt *neg* oder *pos* an auf welcher Seite diese angebaut werden soll.
 	- B - Breiten: Welche Breiten an Belägen hier eingebaut werden sollen (*32* cm oder *24* cm)
 
-### Liste der gülten Elemente
+### Liste der gültigen Elemente
 
 Aktuell sind folgende Elemente implementiert:
  
 | Kürzel  | Element               | Richtung erforderlich | Besonderheit                  |
-| ------- | -----------------     | --------------------- | ----------------------------- |
-| AnfSt   | Anfangsstück          |   zukünfig (Bohrung)  |                               |
-| V100    | Vertikalstiel         |   zukünfig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V150    | Vertikalstiel         |   zukünfig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V200    | Vertikalstiel         |   zukünfig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V300    | Vertikalstiel         |   zukünfig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| :------ | :-------------------- | :-------------------: | :---------------------------- |
+| AnfSt   | Anfangsstück          |  zukünftig (Bohrung)  |                               |
+| V100    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V150    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V200    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V300    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
 | R100    | Riegel 1 m            |          ja           |                               |
 | R200    | Riegel 2 m            |          ja           |                               |
 | R300    | Riegel 3 m            |          ja           |                               |
@@ -69,9 +69,9 @@ Aktuell sind folgende Elemente implementiert:
 
 ### Daten ergänzen - eigene Konstruktionen
 
-Die standardmäßig verknüpfte Datenquelle hat sehr liberale Freigabeeinstellungen. Hier können leicht weitere Konstruktionen eingefügt werden. Die Tabelle kann aber auch kopiert werden und für Liste eigener Konstruktionen genutzt werden.
+Die standardmäßig verknüpfte Datenquelle hat sehr liberale Freigabeeinstellungen. Hier können leicht weitere Konstruktionen eingefügt werden. Die Tabelle kann aber auch kopiert werden und als Grundlage für eine Tabelle eigener Konstruktionen verwendet werden.
 
-Die Aktuelle Datenquelle und die gewählte Konstruktion werden bei der Darstellung in der Adresszeile des Browsers hinterlegt. Dieser Link kann also einfach gespeichert oder geteilt werden.
+Die aktuelle Datenquelle und die gewählte Konstruktion werden bei der Darstellung in der Adresszeile des Browsers hinterlegt. Dieser Link kann also einfach gespeichert oder geteilt werden.
 
 ## Technische Basis
 
@@ -87,10 +87,11 @@ Die Aktuelle Datenquelle und die gewählte Konstruktion werden bei der Darstellu
 
 Ursprünglich PoC: Aus Tabelle mach 3d-Animation
 
-### Ausblick
+### Ausblick / ToDo
 
-- Verbesserungen UI: 
-	- Tastaturbedienung
-	- größere Schrittanzeige
-	- besser bewegbare Kamera (z.B. Rotation in verschiedenen Höhen)
-- verbleibende Gerüstelemente implementieren
+- [ ] UI: Tastaturbedienung (Rotation, Schritte)
+- [ ] UI: größere Schrittanzeige
+- [ ] UI: besser bewegbare Kamera (Blickrichtung ändern)
+- [ ] UI: Höhe der automatischen Kamera einstellbar
+- [ ] verbleibende Gerüstelemente implementieren
+- [ ] Minimal-Version (ohne UI, nur Animation) zum Einbinden
