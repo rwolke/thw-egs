@@ -31,14 +31,14 @@
 		</div>
 	</li>
 	<li class="navbar-text">
-		Ansicht / Rotation:
+		Ansicht:
 	</li>
 	<li>
 		<div class="btn-group" role="group">
 			<button type="button" class="rot-incr btn btn-info navbar-btn" data-incr="-.25">-</button>
 			<div class="btn-group dropup" role="group">
 				<button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Modus <span id="rotMode">{{rotMode}}</span> <span class="caret"></span>
+					Rotation <!--<span id="rotMode">{{rotMode}}</span> --><span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu rots">
 					<li class="rot-0 {{#cmp rate "0"}}active{{/cmp}}"><a class="rot-setp" data-setp="0">Manuell</a></li>
@@ -48,8 +48,32 @@
 					<li class="rot-5 {{#cmp rate "5"}}active{{/cmp}}"><a class="rot-setp" data-setp="5">5 U/min</a></li>
 				</ul>
 			</div>
-			<button type="button" class="btn btn-info navbar-btn rot-reset">Reset</button>
 			<button type="button" class="rot-incr btn btn-info navbar-btn" data-incr=".25">+</button>
+		</div>
+		&nbsp;
+	</li>
+	<li>
+		<div class="btn-group" role="group">
+			<button type="button" class="height-incr btn btn-info navbar-btn" data-incr="-50">-</button>
+			<div class="btn-group dropup" role="group">
+				<button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Höhe <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu heights">
+					<li class=""><a class="height-setrel" data-setrel="1.5">Oberkante + 50 %</a></li>
+					<li class=""><a class="height-setrel" data-setrel="1">Oberkante</a></li>
+					<li class=""><a class="height-setrel" data-setrel="0.5">Mitte</a></li>
+					<li class=""><a class="height-setabs" data-setabs="157">Mensch</a></li>
+					<li class=""><a class="height-setrel" data-setrel="0">Unterkante</a></li>
+				</ul>
+			</div>
+			<button type="button" class="height-incr btn btn-info navbar-btn" data-incr="50">+</button>
+		</div>
+		&nbsp;
+	</li>
+	<li>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-info navbar-btn view-reset">Reset</button>
 		</div>
 	</li>
 </ul>

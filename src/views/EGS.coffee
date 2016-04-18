@@ -178,9 +178,6 @@ class Display
 		@scene.add do element.getMesh
 		@bbox.union element.model.geometry.boundingBox
 		do @resetView
-		
-
-	
 	
 	setTurnRate: (rate) ->
 		delta = (do Date.now) - @startTime # 60 000 per Minute
@@ -194,6 +191,13 @@ class Display
 		@turnRate = rate
 		@calcCamPos true
 	
+	setHeight: (height, relation) ->
+		@camHeight = switch relation
+			when "abs" then 10 * height
+			when "incr" then @camHeight + 10 * height
+			when "rel" then 2 * @center.y * height
+			else @camHeight
+	
 	calcCamPos: (override) ->
 		if override
 			turnIndex = @turnOffset
@@ -203,7 +207,7 @@ class Display
 			turnIndex = @turnOffset + delta / (60000 / @turnRate)
 		
 		@camera.position.x = @center.x + Math.sin(2 * Math.PI * turnIndex) * ( @camDistance + @camDistanceOffset )
-		@camera.position.y = @camHeight + @camHeightOffset
+		@camera.position.y = @camHeight
 		@camera.position.z = @center.z + Math.cos(2 * Math.PI * turnIndex) * ( @camDistance + @camDistanceOffset )
 		@camera.lookAt @center
 
@@ -216,6 +220,10 @@ class EGS_View extends Backbone.View
 	
 	setTurnRate: (rate) ->
 		@display.setTurnRate Math.max 0, rate
+	setHeight: (height, relation) ->
+		@display.setHeight height, relation
+	resetView: ->
+		do @display.resetView
 	
 	constructor: (@app, @domElementID) ->
 		@display = new Display @domElementID

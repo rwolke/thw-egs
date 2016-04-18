@@ -16,7 +16,20 @@ module.exports = Backbone.View.extend
 		"click .step-auto": "stepAuto"
 		"click .rot-incr": "rotationIncr"
 		"click .rot-setp": "rotationSetp"
-		"click .rot-reset": "rotationReset"
+		"click .view-reset": "viewReset"
+		"click .height-incr": "heightIncr"
+		"click .height-setabs": "heightSetAbs"
+		"click .height-setrel": "heightSetRel"
+
+	heightIncr: (e) ->
+		@app.view.EGS.setHeight( parseInt(e.target.dataset.incr) , 'incr') if @app.view.EGS 
+		do @update
+	heightSetAbs: (e) ->
+		@app.view.EGS.setHeight( parseInt(e.target.dataset.setabs) , 'abs') if @app.view.EGS 
+		do @update
+	heightSetRel: (e) ->
+		@app.view.EGS.setHeight( parseFloat(e.target.dataset.setrel) , 'rel') if @app.view.EGS 
+		do @update
 	
 	stepRel: (e) ->
 		@incrStep e.target.dataset.step
@@ -33,8 +46,12 @@ module.exports = Backbone.View.extend
 		@rotRate = parseFloat e.target.dataset.setp
 		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS 
 		do @update
-	rotationReset: (e) ->
-		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS 
+	
+	viewReset: (e) ->
+		@rotRate = 2
+		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS
+		do @app.view.EGS.resetView if @app.view.EGS
+		do @update
 		
 	
 	startup: ->
@@ -70,7 +87,7 @@ module.exports = Backbone.View.extend
 		$('#stepNo', @$el).text @steps[@step]
 		$('.steps li', @$el).removeClass 'active'
 		$('.step-' + @step, @$el).addClass 'active'
-		$('#rotMode', @$el).text if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
+		# $('#rotMode', @$el).text if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
 		$('.rots li', @$el).removeClass 'active'
 		$('.rot-' + @rotRate, @$el).addClass 'active'
 		
