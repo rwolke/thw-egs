@@ -50,18 +50,24 @@ Aktuell sind folgende Elemente implementiert:
 | Kürzel  | Element               | Richtung erforderlich | Besonderheit                  |
 | :------ | :-------------------- | :-------------------: | :---------------------------- |
 | AnfSt   | Anfangsstück          |  zukünftig (Bohrung)  |                               |
-| V100    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V150    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V200    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| V300    | Vertikalstiel         |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
-| R100    | Riegel 1 m            |          ja           |                               |
-| R200    | Riegel 2 m            |          ja           |                               |
-| R300    | Riegel 3 m            |          ja           |                               |
+| V50     | Vertikalstiel  50 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V100    | Vertikalstiel 100 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V150    | Vertikalstiel 150 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V200    | Vertikalstiel 200 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V300    | Vertikalstiel 300 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| V400    | Vertikalstiel 400 cm  |  zukünftig (Bohrung)  | *oRV* wenn kein Rohrverbinder |
+| R25     | Riegel  25 cm         |          ja           |                               |
+| R50     | Riegel  50 cm         |          ja           |                               |
+| R100    | Riegel 100 cm         |          ja           |                               |
+| R200    | Riegel 200 cm         |          ja           |                               |
+| R300    | Riegel 300 cm         |          ja           |                               |
 | DR200   | Doppelrohr-Riegel 2 m |          ja           |                               |
 | DR300   | Doppelrohr-Riegel 3 m |          ja           |                               |
 | D100    | Diagonale 1 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
+| D150    | Diagonale 1,5 x 2 m   |          ja           | *pos* oder *neg* für Seite    |
 | D100    | Diagonale 2 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
 | D100    | Diagonale 3 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
+| DS200   | Diagonale 2 x 1 m     |          ja           | *pos* oder *neg* für Seite    |
 | F40     | Gewindefuß 40 cm      |         nein          |                               |
 | F60     | Gewindefuß 60 cm      |         nein          |                               |
 | B100    | Beläge 100 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |

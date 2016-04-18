@@ -447,10 +447,14 @@ class EGS_Elements
 		
 		switch n
 			when "AnfSt" then AnfSt x, h, z
+			when "V50" then VX 50, x, h, z, s
 			when "V100" then VX 100, x, h, z, s
 			when "V150" then VX 150, x, h, z, s
 			when "V200" then VX 200, x, h, z, s
 			when "V300" then VX 300, x, h, z, s
+			when "V400" then VX 400, x, h, z, s
+			when "R25" then RX 25, x, h, z, d
+			when "R50" then RX 50, x, h, z, d
 			when "R100" then RX 100, x, h, z, d
 			when "R200" then RX 200, x, h, z, d
 			when "R300" then RX 300, x, h, z, d
@@ -458,8 +462,10 @@ class EGS_Elements
 			when "DR200" then DRX 200, x, h, z, d
 			when "DR300" then DRX 300, x, h, z, d
 			when "D100" then VDX 100, 200, x, h, z, d, s
+			when "D150" then VDX 150, 200, x, h, z, d, s
 			when "D200" then VDX 200, 200, x, h, z, d, s
 			when "D300" then VDX 300, 200, x, h, z, d, s
+			when "DS200" then VDX 200, 100, x, h, z, d, s
 			when "F40" then FX 40, x, h, z, s
 			when "F60" then FX 40, x, h, z, s
 			when "B100" then BX 100, x, h, z, d, s
