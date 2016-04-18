@@ -24,14 +24,14 @@ module.exports = class extends Backbone.Model
 			name: "Besonderheit"
 	
 	determineColumn: (label) ->
-		return 'element' if /(Element|Bauteil)(\s.*)?/i.test label
-		return 'direction' if /(Richtung)(\s.*)?/i.test label
-		return 'special' if /(Besonderheit)(\s.*)?/i.test label
-		return 'show' if  /(.*\s)?(Anzeige)/i.test label
-		return 'x' if  /(.*\s)?(X)/i.test label
-		return 'y' if  /(.*\s)?(Y)/i.test label
-		return 'h' if  /(.*\s)?(H)/i.test label
-		return 'color' if  /(.*\s)?(Farbe)/i.test label
+		return 'element' if /^\s?(Element|Bauteil)\s$/i.test label
+		return 'direction' if /^\s?(Richtung)\s?$/i.test label
+		return 'special' if /^\s?(Besonderheit)\s(.*)?$/i.test label
+		return 'show' if  /^(Anzeige\s)?(Anzeige)$/i.test label
+		return 'x' if  /^(Position)?\s?(X)$/i.test label
+		return 'y' if  /^(Position)?\s?(Y)$/i.test label
+		return 'h' if  /^(Position)?\s?(H)$/i.test label
+		return 'color' if  /^(Anzeige)?\s?(Farbe)$/i.test label
 		null
 	
 	idAttribute: "sheet"
