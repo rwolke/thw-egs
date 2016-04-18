@@ -222,6 +222,7 @@ class EGS_View extends Backbone.View
 	
 	showConstruct: (construction) ->
 		@elements = [];
+		@steps = []
 		construction.get('elements').each (e) =>
 			@elements.push new EGS_ElementView
 				model: e
