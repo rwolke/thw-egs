@@ -301,6 +301,14 @@ class EGS_Elements
 		]
 		new THREE.CustomGeometry vertices, faces
 	
+	_haengegeruestVerbinder = ->
+		rv = new THREE.BoxGeometry(10,50,550)
+		rv.applyMatrix _m(82, 0, 250)
+		rv.merge _keilKupplungRiegel(), _m(0, 0, 0)
+		rv.merge _keilKupplungRiegel(), _m(0, 0, 500)
+		rv.applyMatrix _m(0,0,0, 'X', -1)
+		rv
+	
 	_Riegel = (l) ->
 		r = _cylinder RohrDurchmesserAussen, RohrDurchmesserInnen, l - 150
 		r.applyMatrix _m(75, 0, 0, 'Y', 1)
@@ -428,9 +436,20 @@ class EGS_Elements
 			when "-Y" then bl.applyMatrix _m(10*x, 10*y, 10*z+10*l, 'Y', 2)
 		bl
 	
-	AnfSt = (x,y,z) ->
+	HV = (x, h, z, d) ->
+		hv = do _haengegeruestVerbinder
+		switch d
+			when "X" then d = 0
+			when "Y" then d = 1
+			when "-X" then d = 2
+			when "-Y" then d = 3
+			else return
+		hv.applyMatrix _m(10*x, 10*h, 10*z, 'Y', -d)
+		hv
+	
+	AnfSt = (x,h,z) ->
 		a = do _AnfStk
-		a.applyMatrix _m(10*x, 10*y, 10*z)
+		a.applyMatrix _m(10*x, 10*h, 10*z)
 		a
 	
 	constructor: ->
@@ -471,6 +490,7 @@ class EGS_Elements
 			when "B100" then BX 100, x, h, z, d, s
 			when "B200" then BX 200, x, h, z, d, s
 			when "B300" then BX 300, x, h, z, d, s
+			when "HV" then HV x, h, z, d
 			else new THREE.Geometry()
 	
 module.exports = EGS_Elements
