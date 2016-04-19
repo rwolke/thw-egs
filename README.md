@@ -20,6 +20,7 @@ Im unteren Teil der Apo befinden sich die Bedienelemente für die Aufbauschritte
 
 **Rotation:** Standardmäßig rotiert die Konstruktion mit 2 Umdrehungen pro Minute. Diese Geschwindigkeit kann angepasst oder die Rotation ganz gestoppt werden. In diesem Fall ist es möglich die Kamera manuell zu rotieren und gezielt Bereiche heranzuzoomen.
 
+**Höhe:** Die Normalansicht zeigt das Modell auf halber Höhe. Mit diesen Bedienelementen lässt sich die Ansicht auf andere Betrachtungshöhen umschalten.
 
 ## Hinterlegen von Konstuktionen
 
@@ -65,14 +66,15 @@ Aktuell sind folgende Elemente implementiert:
 | DR300   | Doppelrohr-Riegel 3 m |          ja           |                               |
 | D100    | Diagonale 1 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
 | D150    | Diagonale 1,5 x 2 m   |          ja           | *pos* oder *neg* für Seite    |
-| D100    | Diagonale 2 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
-| D100    | Diagonale 3 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
+| D200    | Diagonale 2 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
+| D300    | Diagonale 3 x 2 m     |          ja           | *pos* oder *neg* für Seite    |
 | DS200   | Diagonale 2 x 1 m     |          ja           | *pos* oder *neg* für Seite    |
 | F40     | Gewindefuß 40 cm      |         nein          |                               |
 | F60     | Gewindefuß 60 cm      |         nein          |                               |
 | B100    | Beläge 100 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
 | B200    | Beläge 200 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
 | B300    | Beläge 300 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
+| HV      | Hängegerüstverbinder  |          ja           |                               |
 
 ### Daten ergänzen - eigene Konstruktionen
 
@@ -96,9 +98,4 @@ Ursprünglich PoC: Aus Tabelle mach 3d-Animation
 
 ### Ausblick / ToDo
 
-- [ ] UI: Tastaturbedienung (Rotation, Schritte)
-- [ ] UI: größere Schrittanzeige
-- [ ] UI: besser bewegbare Kamera (Blickrichtung ändern)
-- [ ] UI: Höhe der automatischen Kamera einstellbar
-- [ ] verbleibende Gerüstelemente implementieren
-- [ ] Minimal-Version (ohne UI, nur Animation) zum Einbinden
+Werden jetzt als Issues gepflegt
