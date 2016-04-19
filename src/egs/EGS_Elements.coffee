@@ -469,6 +469,7 @@ class EGS_Elements
 			when "F40" then FX 40, x, h, z, s
 			when "F60" then FX 40, x, h, z, s
 			when "B100" then BX 100, x, h, z, d, s
+			when "B200" then BX 200, x, h, z, d, s
 			when "B300" then BX 300, x, h, z, d, s
 			else new THREE.Geometry()
 	

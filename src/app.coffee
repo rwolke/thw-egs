@@ -28,7 +28,7 @@ App = class MainApp extends Backbone.Router
 	routes: 
 		"": "default"
 		":skey": "loadSource"
-		":skey/:sgid": "loadSource"
+		":skey/:sgid(/)": "loadSource"
 		":skey/:sgid/:ckey/:cgid": "loadConstruct"
 	
 	default: -> 

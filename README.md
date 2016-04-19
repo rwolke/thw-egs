@@ -71,6 +71,7 @@ Aktuell sind folgende Elemente implementiert:
 | F40     | Gewindefuß 40 cm      |         nein          |                               |
 | F60     | Gewindefuß 60 cm      |         nein          |                               |
 | B100    | Beläge 100 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
+| B200    | Beläge 200 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
 | B300    | Beläge 300 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
 
 ### Daten ergänzen - eigene Konstruktionen
