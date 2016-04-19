@@ -11,7 +11,7 @@ class EGS_ElementView extends Backbone.View
 	parseNum: (text) ->
 		return [] if not text
 		list = []
-		t1 = text.split ','
+		t1 = String(text).split ','
 		for t2 in t1
 			tt = t2.split ':'
 			ptt = tt[0].split '-'
