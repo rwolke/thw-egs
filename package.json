@@ -5,6 +5,7 @@
     "main": "index.html",
     "scripts": {
         "build": "npx webpack",
+        "release": "npx webpack -p",
         "start": "http-server",
         "test": "http-server"
     },
