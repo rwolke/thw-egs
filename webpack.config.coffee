@@ -12,10 +12,10 @@ plugins.push new webpack.ProvidePlugin
 	"windows.jQuery": "jquery"
 	"THREE": "THREE"
 plugins.push new HtmlWebpackPlugin
-	filename: "dist/index.html"
+	filename: "index.html"
 	title: "EGS"
 	template: 'src/index.hbs'
-plugins.push new webpack.optimize.CommonsChunkPlugin "lib", "dist/js/lib.js"
+plugins.push new webpack.optimize.CommonsChunkPlugin "lib", "js/lib.js"
 
 if PROD
 	plugins.push new webpack.optimize.UglifyJsPlugin
@@ -38,9 +38,9 @@ module.exports =
 		]
 	
 	output: 
-		path: __dirname
+		path: path.resolve(__dirname, 'dist')
 		publicPath: ""
-		filename: "dist/js/[name].js"
+		filename: "js/[name].js"
 #		chunkFilename: "[id]_[name]_[hash].js"
 	
 	externals:
