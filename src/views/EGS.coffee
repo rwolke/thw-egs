@@ -93,6 +93,9 @@ class Display
 		@renderer.setSize window.innerWidth, window.innerHeight
 		document.getElementById(domElementID).appendChild @renderer.domElement
 	
+	_setBackgroundColor: (color) ->
+		@scene.background = new THREE.Color( color )
+
 	_addLights: ->
 		ambiLight = new THREE.AmbientLight( 0xffffff, 0.6 )
 		@scene.add ambiLight
@@ -209,6 +212,9 @@ class Display
 		@camera.position.y = @camHeight
 		@camera.position.z = @center.z + Math.cos(2 * Math.PI * turnIndex) * ( @camDistance + @camDistanceOffset )
 		@camera.lookAt @center
+	
+	setBackgroundColor: (color) ->
+		@_setBackgroundColor color
 
 class EGS_View extends Backbone.View
 	elements: []
@@ -221,6 +227,8 @@ class EGS_View extends Backbone.View
 		@display.setTurnRate Math.max 0, rate
 	setHeight: (height, relation) ->
 		@display.setHeight height, relation
+	setBackgroundColor: (color) ->
+		@display.setBackgroundColor color
 	resetView: ->
 		do @display.resetView
 	
