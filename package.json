@@ -1,8 +1,8 @@
 {
 	"name": "thw-egs",
 	"version": "0.0.3",
-	"description": "",
-	"main": "index.html",
+	"description": "Visualization of EGS constructions",
+	"private": true,
 	"scripts": {
 		"build": "npx webpack",
 		"release": "npx webpack --mode=production",
@@ -19,13 +19,13 @@
 		}
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/rwolke/thw-egs#readme",
+	"homepage": "http://visualisierung.thw-egs.de",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/rwolke/thw-egs.git"
+		"url": "https://github.com/theudebart/thw-egs.git"
 	},
 	"bugs": {
-		"url": "https://github.com/rwolke/thw-egs/issues"
+		"url": "https://github.com/theudebart/thw-egs/issues"
 	},
 	"devDependencies": {
 		"coffee-loader": "^4.0.0",
