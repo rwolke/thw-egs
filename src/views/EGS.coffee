@@ -226,6 +226,7 @@ class EGS_View extends Backbone.View
 		do @display.resetView
 	
 	constructor: (@app, @domElementID) ->
+		super()
 		@display = new Display @domElementID
 	
 	showConstruct: (construction) ->

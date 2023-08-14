@@ -5,7 +5,6 @@
 		<title>EGS Visualisierung</title>
 		<meta charset="utf-8">
 		<style>
-			.navbar { margin-bottom:0 !important; }
 			#display { position: fixed; top: 50px; left:0; background: #fed; right:0; bottom: 50px; }
 			.spinner { width: 70px; text-align: center; line-height:1; }
 			.spinner > div { 
@@ -28,33 +27,26 @@
 	</head>
 	<body data-defaultSource="https://docs.google.com/spreadsheets/d/1z0wPbfVoUCu6buGLWJPDcxtESDJJXNRvjhKQt6fDDqQ/edit#gid=0">
 		<div class="container-fluid">
-			<nav class="navbar navbar-default navbar-fixed-top">
+			<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
 				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#primaryNav" aria-expanded="false">
-							<span class="sr-only">Navigation einblenden</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">EGS Betrachter</a>
-					</div>
+					<a class="navbar-brand" href="#">EGS Betrachter</a>
+					<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false">
+						<span class="visually-hidden">Navigation einblenden</span>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 					<div class="collapse navbar-collapse" id="primaryNav">
 					</div>
 				</div>
 			</nav>
 			
 			<div id="display"></div>
-			<nav class="navbar navbar-default navbar-fixed-bottom">
+			
+			<nav class="navbar navbar-expand-lg fixed-bottom bg-body-tertiary">
 				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#secondaryNav" aria-expanded="false">
-							<span class="sr-only">Navigation einblenden</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-					</div>
+					<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#secondaryNav" aria-controls="secondaryNav" aria-expanded="false">
+						<span class="visually-hidden">Navigation einblenden</span>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 					<div class="collapse navbar-collapse" id="secondaryNav">
 					</div>
 			</nav>
@@ -63,9 +55,9 @@
 		<div class="modal fade" id="dataSourceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header bg-primary">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Adresse der Datenquelle</h4>
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="myModalLabel">Adresse der Datenquelle</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<div id="dataSourceModal-error" style="display:none" class="alert alert-danger fade in" role="alert">
@@ -82,8 +74,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button id="dataSourceModal-cancel" type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-						<button id="dataSourceModal-save" type="button" class="btn btn-primary" data-dismiss="modal">speichern &amp; laden</button>
+						<button id="dataSourceModal-cancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+						<button id="dataSourceModal-save" type="button" class="btn btn-primary" data-bs-dismiss="modal">speichern &amp; laden</button>
 					</div>
 				</div>
 			</div>

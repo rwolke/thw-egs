@@ -1,3 +1,6 @@
+require "scss/style.scss"
+
+Bootstrap = require "bootstrap"
 Backbone = require "backbone"
 _ = require "underscore"
 window = require "window"
