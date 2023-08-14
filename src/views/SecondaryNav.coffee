@@ -85,10 +85,10 @@ module.exports = Backbone.View.extend
 		
 	update: ->
 		$('#stepNo', @$el).text @steps[@step]
-		$('.steps li', @$el).removeClass 'active'
+		$('.steps li a', @$el).removeClass 'active'
 		$('.step-' + @step, @$el).addClass 'active'
 		# $('#rotMode', @$el).text if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
-		$('.rots li', @$el).removeClass 'active'
+		$('.rots li a', @$el).removeClass 'active'
 		$('.rot-' + @rotRate, @$el).addClass 'active'
 		
 	render: ->

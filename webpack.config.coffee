@@ -15,7 +15,6 @@ plugins.push new HtmlWebpackPlugin
 	filename: "index.html"
 	title: "EGS"
 	template: 'src/index.hbs'
-plugins.push new webpack.optimize.CommonsChunkPlugin "lib", "js/lib.js"
 
 if PROD
 	plugins.push new webpack.optimize.UglifyJsPlugin
@@ -26,7 +25,8 @@ if PROD
 
 module.exports = 
 #	cache: false,
-#	debug:true
+#	debug: true
+	mode: if PROD then 'production' else 'development'
 	devtool: 'source-map'
 	entry:
 		app: "app"
@@ -34,12 +34,10 @@ module.exports =
 			"jquery" 
 			"THREE"
 			"three-orbit-controls"
-			"bootstrap-webpack!bootstrap.config.js"
 		]
 	
 	output: 
 		path: path.resolve(__dirname, 'dist')
-		publicPath: ""
 		filename: "js/[name].js"
 #		chunkFilename: "[id]_[name]_[hash].js"
 	
@@ -49,15 +47,64 @@ module.exports =
 		window: 'window'
 	
 	module:
-		loaders: [
-			# coffescript
-			{ test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' }
-			{ test: /\.coffee$/, loader: "coffee-loader" }
-			{ test: /\.hbs$/, loader: "handlebars-loader?inlineRequires=cmp&helperDirs[]=" + __dirname + "/src/_helpers/handlebars" }
+		rules: [
+			{
+				test: /\.(scss)$/
+				use: [
+					{
+						loader: 'style-loader'
+					}
+					{
+						loader: 'css-loader'
+					}
+					{
+						loader: 'postcss-loader',
+						options: {
+							postcssOptions: {
+								plugins: () => [
+									require('autoprefixer')
+								]
+							}
+						}
+					}
+					{
+						loader: 'sass-loader'
+					}
+				]
+			}
+			{
+				test: /bootstrap\/js\//
+				use: [
+					{
+						loader: 'imports'
+						options: {
+							jQuery: 'jquery'
+						}
+					}
+				] 
+			}
+			{
+				test: /\.coffee$/
+				use: [
+					{ loader: "coffee-loader" }
+				]
+			}
+			{
+				test: /\.hbs$/
+				use: [
+					{
+						loader: 'handlebars-loader'
+						options: {
+							inlineRequires: 'cmp'
+							helperDirs: [__dirname + "/src/_helpers/handlebars"]
+						}
+					}
+				]
+			}
 		]
 	
 	resolve:
-		modulesDirectories: [
+		modules: [
 			"node_modules", 
 			"src",
 			"src/_helpers"
@@ -65,14 +112,25 @@ module.exports =
 		extensions: ["", ".js", ".coffee", ".hbs"]
 	
 	resolveLoader:
-		modulesDirectories: ["src/_loaders", "node_modules"]
+		modules: ["src/_loaders", "node_modules"]
 		extensions: ["", ".webpack-loader.js", ".web-loader.js", ".loader.js", ".js"]
-		packageMains: ["webpackLoader", "webLoader", "loader", "main"]
+		mainFields: ["webpackLoader", "webLoader", "loader", "main"]
 	
 	plugins: plugins
 	
 	devServer:
 		headers: 
 			"Access-Control-Allow-Origin": "*"
-		contentBase: "."
+		static: {
+			directory: path.join(__dirname, 'dist')
+		}
+		client: {
+			overlay: {
+				warnings: false,
+				errors: true
+			}
+		}
+		hot: 'only'
+		compress: true
+		port: 8080
 #		historyApiFallback: true

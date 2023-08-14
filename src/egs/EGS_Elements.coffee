@@ -88,8 +88,8 @@ class EGS_Elements
 			hole = new THREE.Path()
 			hole.absarc 0, 0, i / 2, 0, D360, true
 			shape.holes.push hole
-		shape.extrude
-			amount: h
+		new THREE.ExtrudeGeometry shape,
+			depth: h
 			steps: 1
 			bevelEnabled: false
 			curveSegments: DETAIL
@@ -100,7 +100,7 @@ class EGS_Elements
 			hole = new THREE.Path()
 			hole.absarc 0, 0, i / 2, 0, D360, true
 			shape.holes.push hole
-		shape.extrude
+		new THREE.ExtrudeGeometry shape,
 			steps: 10
 			extrudePath: p
 	
@@ -118,8 +118,8 @@ class EGS_Elements
 			hole = new THREE.Path()
 			hole.absarc 0, 0, i, 0, D360, true
 			shape.holes.push hole
-		cyl = shape.extrude
-			amount: h
+		cyl = new THREE.ExtrudeGeometry shape,
+			depth: h
 			steps: 1
 			bevelEnabled: false
 			curveSegments: DETAIL
@@ -142,7 +142,7 @@ class EGS_Elements
 		a.merge _rohr(165), _m(0,0,-65)
 		a.merge _teller()
 		a.merge _cylinder(55,49,170), _m(0,0,95)
-		a.applyMatrix _m(0,0,0, 'X', -1)
+		a.applyMatrix4 _m(0,0,0, 'X', -1)
 		a
 	
 	_belagKlammer = (x) ->
@@ -158,12 +158,12 @@ class EGS_Elements
 		shape.lineTo( 30, 35)
 		shape.lineTo(  0, 35)
 		shape.lineTo(  0,  0)
-		bk = shape.extrude
-			amount: 40
+		bk = new THREE.ExtrudeGeometry shape,
+			depth: 40
 			steps: 1
 			bevelEnabled: false
 			curveSegments: DETAIL
-		bk.applyMatrix _m(x, 0, 55, 'Y', 1)
+		bk.applyMatrix4 _m(x, 0, 55, 'Y', 1)
 		bk
 	
 	_belagRahmen = (l, b) ->
@@ -196,7 +196,7 @@ class EGS_Elements
 		b.merge _belagRahmen(l, w), _m(0,0,0)
 		b.merge _belagKlammer(1), _m(  60,0,l, 'Y', 2)
 		b.merge _belagKlammer(1), _m(w-60,0,l, 'Y', 2)
-		b.applyMatrix _m(55+x, 0, 0)
+		b.applyMatrix4 _m(55+x, 0, 0)
 		b
 	
 	_keilKupplungDiagonale = (d, r = 1)->
@@ -239,7 +239,7 @@ class EGS_Elements
 				faces.push [fd[1], fd[0], fd[2]]
 		
 		kkd = new THREE.CustomGeometry vertices, faces
-		kkd.applyMatrix _m(0,0,0, 'Z', .5*r*d)
+		kkd.applyMatrix4 _m(0,0,0, 'Z', .5*r*d)
 		kkd
 	
 	_VertikalDiagonale = (w, s = 1, h = 2000) ->
@@ -303,23 +303,23 @@ class EGS_Elements
 	
 	_haengegeruestVerbinder = ->
 		rv = new THREE.BoxGeometry(10,50,550)
-		rv.applyMatrix _m(82, 0, 250)
+		rv.applyMatrix4 _m(82, 0, 250)
 		rv.merge _keilKupplungRiegel(), _m(0, 0, 0)
 		rv.merge _keilKupplungRiegel(), _m(0, 0, 500)
-		rv.applyMatrix _m(0,0,0, 'X', -1)
+		rv.applyMatrix4 _m(0,0,0, 'X', -1)
 		rv
 	
 	_Riegel = (l) ->
 		r = _cylinder RohrDurchmesserAussen, RohrDurchmesserInnen, l - 150
-		r.applyMatrix _m(75, 0, 0, 'Y', 1)
+		r.applyMatrix4 _m(75, 0, 0, 'Y', 1)
 		r.merge _keilKupplungRiegel()
 		r.merge _keilKupplungRiegel(), _m(l, 0, 0, 'Z', 2)
-		r.applyMatrix _m(0,0,0, 'X', -1)
+		r.applyMatrix4 _m(0,0,0, 'X', -1)
 		r
 	
 	_DoppelRiegel = (l) ->
 		r = _cylinder RohrDurchmesserAussen, RohrDurchmesserInnen, l - 150
-		r.applyMatrix _m(75, 0, 0, 'Y', 1)
+		r.applyMatrix4 _m(75, 0, 0, 'Y', 1)
 		r.merge _keilKupplungRiegel()
 		r.merge _keilKupplungRiegel(), _m(l, 0, 0, 'Z', 2)
 		
@@ -328,15 +328,15 @@ class EGS_Elements
 		p.add(new THREE.LineCurve3((new THREE.Vector3(  200, 100, 0)),(new THREE.Vector3(l-350, 100, 0))));
 		p.add(new THREE.LineCurve3((new THREE.Vector3(l-350, 100, 0)),(new THREE.Vector3(l-150,   0, 0))));
 		r2 = _cylinderPath RohrDurchmesserAussen*.6, RohrDurchmesserInnen*.6, p
-		r2.applyMatrix _m(75, 0, 0, 'X',-1)
+		r2.applyMatrix4 _m(75, 0, 0, 'X',-1)
 		r.merge r2
 		
 		for i in [500..l-1] by 500
 			f = new THREE.BoxGeometry(100,100,5)
-			f.applyMatrix _m(i, 0,-50, 'X', 1)
+			f.applyMatrix4 _m(i, 0,-50, 'X', 1)
 			r.merge f
 		
-		r.applyMatrix _m(0,0,0, 'X', -1)
+		r.applyMatrix4 _m(0,0,0, 'X', -1)
 		r
 	
 	_teller = ->
@@ -344,7 +344,7 @@ class EGS_Elements
 	
 	_rohrverbinder = ->
 		rv = _cylinder 45, 30, 400
-		rv.applyMatrix _m(0,0,-200)
+		rv.applyMatrix4 _m(0,0,-200)
 		rv
 	
 	_VertikalStiel = (l, rv = 1) ->
@@ -353,7 +353,7 @@ class EGS_Elements
 		for i in [500..l] by 500
 			v.merge _teller(), _m(0,0,i)
 		v.merge _rohrverbinder(), _m(0,0,l) if rv is 1
-		v.applyMatrix _m(0,0,0, 'X', -1)
+		v.applyMatrix4 _m(0,0,0, 'X', -1)
 		v
 	
 	FX = (l,x,y,z,o) ->
@@ -361,9 +361,9 @@ class EGS_Elements
 		f.merge new THREE.BoxGeometry(100,100,5)
 		f.merge new THREE.BoxGeometry(120,40,10), _m(0,0,70, 'Z', .5)
 		if parseInt(o) < 0 or (o and o[0] is 'n') or o is '-'
-			f.applyMatrix _m(10*x,10*y+175,10*z,'X', 1)
+			f.applyMatrix4 _m(10*x,10*y+175,10*z,'X', 1)
 		else
-			f.applyMatrix _m(10*x,10*y-144,10*z,'X', -1)
+			f.applyMatrix4 _m(10*x,10*y-144,10*z,'X', -1)
 		f
 	
 	VX = (l,x,y,z,o) ->
@@ -374,7 +374,7 @@ class EGS_Elements
 				d = 2 if parseInt(s) < 0 or (s and s[0] is 'n') or s is '-' 
 				rv = 0 if s[0] is 'o'
 		v = _VertikalStiel 10*l, rv
-		v.applyMatrix _m(10*x, 10*y, 10*z, 'X', d)
+		v.applyMatrix4 _m(10*x, 10*y, 10*z, 'X', d)
 		v
 	
 	RX = (l,x,y,z,d) ->
@@ -386,7 +386,7 @@ class EGS_Elements
 			when "-Y" then d = 3
 			else return
 				
-		r.applyMatrix _m(10*x, 10*y, 10*z, 'Y', -d)
+		r.applyMatrix4 _m(10*x, 10*y, 10*z, 'Y', -d)
 		r
 	
 	DRX = (l,x,y,z,d) ->
@@ -398,7 +398,7 @@ class EGS_Elements
 			when "-Y" then d = 3
 			else return
 				
-		r.applyMatrix _m(10*x, 10*y, 10*z, 'Y', -d)
+		r.applyMatrix4 _m(10*x, 10*y, 10*z, 'Y', -d)
 		r
 	
 	VDX = (w,h,x,y,z,d,o) ->
@@ -412,9 +412,9 @@ class EGS_Elements
 		s = if d == 1 or d == 2 then 1 else -1
 		s *= -1 if parseInt(o) < 0 or (o and o[0] is 'n') or o is '-'
 		vd = _VertikalDiagonale 10*w, s, 10*h
-		vd.applyMatrix _m(0,0,0,'X', -1)
-		vd.applyMatrix _m(0,0,0,'Y', -d)
-		vd.applyMatrix _m(10*x, 10*y, 10*z)
+		vd.applyMatrix4 _m(0,0,0,'X', -1)
+		vd.applyMatrix4 _m(0,0,0,'Y', -d)
+		vd.applyMatrix4 _m(10*x, 10*y, 10*z)
 		vd
 	
 	BX = (l,x,y,z,d,s) ->
@@ -430,10 +430,10 @@ class EGS_Elements
 			o += 10*b + 5
 		
 		switch d
-			when  "X" then bl.applyMatrix _m(10*x + 10*l, 10*y, 10*z, 'Y', -1)
-			when  "Y" then bl.applyMatrix _m(10*x, 10*y, 10*z)
-			when "-X" then bl.applyMatrix _m(10*x, 10*y, 10*z, 'Y', 1)
-			when "-Y" then bl.applyMatrix _m(10*x, 10*y, 10*z+10*l, 'Y', 2)
+			when  "X" then bl.applyMatrix4 _m(10*x + 10*l, 10*y, 10*z, 'Y', -1)
+			when  "Y" then bl.applyMatrix4 _m(10*x, 10*y, 10*z)
+			when "-X" then bl.applyMatrix4 _m(10*x, 10*y, 10*z, 'Y', 1)
+			when "-Y" then bl.applyMatrix4 _m(10*x, 10*y, 10*z+10*l, 'Y', 2)
 		bl
 	
 	HV = (x, h, z, d) ->
@@ -444,12 +444,12 @@ class EGS_Elements
 			when "-X" then d = 2
 			when "-Y" then d = 3
 			else return
-		hv.applyMatrix _m(10*x, 10*h, 10*z, 'Y', -d)
+		hv.applyMatrix4 _m(10*x, 10*h, 10*z, 'Y', -d)
 		hv
 	
 	AnfSt = (x,h,z) ->
 		a = do _AnfStk
-		a.applyMatrix _m(10*x, 10*h, 10*z)
+		a.applyMatrix4 _m(10*x, 10*h, 10*z)
 		a
 	
 	constructor: ->

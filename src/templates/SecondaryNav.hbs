@@ -1,79 +1,79 @@
 <ul class="nav navbar-nav navbar-left">
-	<li class="navbar-text">
+	<li class="navbar-text p-2">
 		Aufbauschritte:
 	</li>
 	<li>
 		<div class="btn-group" role="group">
-			<button type="button" class="step-rel btn btn-info navbar-btn" data-step="-1">&lt;</button>
+			<button type="button" class="step-rel btn btn-primary" data-step="-1">&lt;</button>
 			<div class="btn-group dropup" role="group">
-				<button type="button" class="btn btn-info navbar-btn dropdown-toggle{{#cmp auto "0"}}{{else}} active{{/cmp}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle {{#cmp auto "0"}}{{else}}active{{/cmp}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Automatisch <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
-					<li class="{{#cmp auto "0"}}active{{/cmp}}"><a class="step-auto" data-val="0">aus</a></li>
-					<li class="{{#cmp auto "1"}}active{{/cmp}}"><a class="step-auto" data-val="1">1 Sekunde</a></li>
-					<li class="{{#cmp auto "2"}}active{{/cmp}}"><a class="step-auto" data-val="2">2 Sekunden</a></li>
-					<li class="{{#cmp auto "5"}}active{{/cmp}}"><a class="step-auto" data-val="5">5 Sekunden</a></li>
-					<li class="{{#cmp auto "10"}}active{{/cmp}}"><a class="step-auto" data-val="10">10 Sekunden</a></li>
+					<li><a class="dropdown-item step-auto {{#cmp auto "0"}}active{{/cmp}}" data-val="0">aus</a></li>
+					<li><a class="dropdown-item step-auto {{#cmp auto "1"}}active{{/cmp}}" data-val="1">1 Sekunde</a></li>
+					<li><a class="dropdown-item step-auto {{#cmp auto "2"}}active{{/cmp}}" data-val="2">2 Sekunden</a></li>
+					<li><a class="dropdown-item step-auto {{#cmp auto "5"}}active{{/cmp}}" data-val="5">5 Sekunden</a></li>
+					<li><a class="dropdown-item step-auto {{#cmp auto "10"}}active{{/cmp}}" data-val="10">10 Sekunden</a></li>
 				</ul>
 			</div>
 			<div class="btn-group dropup" role="group">
-				<button type="button" class="btn btn-info navbar-btn dropdown-toggle{{#cmp auto "0"}} active{{/cmp}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Schritt <span id="stepNo">{{stepName}}</span> <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu steps">
 					{{#each steps}}
-						<li class="step-{{i}}{{#cmp ../step i}} active{{/cmp}}"><a class="step-abs" data-step="{{i}}">{{ name }}</a></li>
+						<li><a class="dropdown-item step-{{i}} step-abs {{#cmp step i}}active{{/cmp}}" data-step="{{i}}">{{ name }}</a></li>
 					{{/each}}
 				</ul>
 			</div>
-			<button type="button" class="step-rel btn btn-info navbar-btn" data-step="1">&gt;</button>
+			<button type="button" class="step-rel btn btn-primary" data-step="1">&gt;</button>
 		</div>
 	</li>
-	<li class="navbar-text">
+	<li class="navbar-text p-2">
 		Ansicht:
 	</li>
 	<li>
 		<div class="btn-group" role="group">
-			<button type="button" class="rot-incr btn btn-info navbar-btn" data-incr="-.25">-</button>
+			<button type="button" class="rot-incr btn btn-primary" data-incr="-.25">-</button>
 			<div class="btn-group dropup" role="group">
-				<button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Rotation <!--<span id="rotMode">{{rotMode}}</span> --><span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu rots">
-					<li class="rot-0 {{#cmp rate "0"}}active{{/cmp}}"><a class="rot-setp" data-setp="0">Manuell</a></li>
-					<li class="rot-1 {{#cmp rate "1"}}active{{/cmp}}"><a class="rot-setp" data-setp="1">1 U/min</a></li>
-					<li class="rot-2 {{#cmp rate "2"}}active{{/cmp}}"><a class="rot-setp" data-setp="2">2 U/min</a></li>
-					<li class="rot-3 {{#cmp rate "3"}}active{{/cmp}}"><a class="rot-setp" data-setp="3">3 U/min</a></li>
-					<li class="rot-5 {{#cmp rate "5"}}active{{/cmp}}"><a class="rot-setp" data-setp="5">5 U/min</a></li>
+					<li><a class="dropdown-item rot-0 rot-setp {{#cmp rate "0"}}active{{/cmp}}" data-setp="0">Manuell</a></li>
+					<li><a class="dropdown-item rot-1 rot-setp {{#cmp rate "1"}}active{{/cmp}}" data-setp="1">1 U/min</a></li>
+					<li><a class="dropdown-item rot-2 rot-setp {{#cmp rate "2"}}active{{/cmp}}" data-setp="2">2 U/min</a></li>
+					<li><a class="dropdown-item rot-3 rot-setp {{#cmp rate "3"}}active{{/cmp}}" data-setp="3">3 U/min</a></li>
+					<li><a class="dropdown-item rot-5 rot-setp {{#cmp rate "5"}}active{{/cmp}}" data-setp="5">5 U/min</a></li>
 				</ul>
 			</div>
-			<button type="button" class="rot-incr btn btn-info navbar-btn" data-incr=".25">+</button>
+			<button type="button" class="rot-incr btn btn-primary" data-incr=".25">+</button>
 		</div>
 		&nbsp;
 	</li>
 	<li>
 		<div class="btn-group" role="group">
-			<button type="button" class="height-incr btn btn-info navbar-btn" data-incr="-50">-</button>
+			<button type="button" class="height-incr btn btn-primary" data-incr="-50">-</button>
 			<div class="btn-group dropup" role="group">
-				<button type="button" class="btn btn-info navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Höhe <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu heights">
-					<li class=""><a class="height-setrel" data-setrel="1.5">Oberkante + 50 %</a></li>
-					<li class=""><a class="height-setrel" data-setrel="1">Oberkante</a></li>
-					<li class=""><a class="height-setrel" data-setrel="0.5">Mitte</a></li>
-					<li class=""><a class="height-setabs" data-setabs="157">Mensch</a></li>
-					<li class=""><a class="height-setrel" data-setrel="0">Unterkante</a></li>
+					<li class=""><a class="dropdown-item height-setrel" data-setrel="1.5">Oberkante + 50 %</a></li>
+					<li class=""><a class="dropdown-item height-setrel" data-setrel="1">Oberkante</a></li>
+					<li class=""><a class="dropdown-item height-setrel" data-setrel="0.5">Mitte</a></li>
+					<li class=""><a class="dropdown-item height-setabs" data-setabs="157">Mensch</a></li>
+					<li class=""><a class="dropdown-item height-setrel" data-setrel="0">Unterkante</a></li>
 				</ul>
 			</div>
-			<button type="button" class="height-incr btn btn-info navbar-btn" data-incr="50">+</button>
+			<button type="button" class="height-incr btn btn-primary" data-incr="50">+</button>
 		</div>
 		&nbsp;
 	</li>
 	<li>
 		<div class="btn-group" role="group">
-			<button type="button" class="btn btn-info navbar-btn view-reset">Reset</button>
+			<button type="button" class="btn btn-primary view-reset">Reset</button>
 		</div>
 	</li>
 </ul>
