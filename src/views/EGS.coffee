@@ -154,8 +154,10 @@ class Display
 		
 	
 	resetView: ->
-		@center = do @bbox.center
-		size = do @bbox.size
+		@center = new THREE.Vector3();
+		@center = @bbox.getCenter @center
+		size = new THREE.Vector3();
+		size = @bbox.getSize size
 		
 		fovH = @camera.fov / 180 * Math.PI * 80 / 100
 		@camDistance = Math.max.apply Math, [
