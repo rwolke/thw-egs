@@ -20,6 +20,7 @@ module.exports = Backbone.View.extend
 		"click .height-incr": "heightIncr"
 		"click .height-setabs": "heightSetAbs"
 		"click .height-setrel": "heightSetRel"
+		"click .bg-setc": "bgSetc"
 
 	heightIncr: (e) ->
 		@app.view.EGS.setHeight( parseInt(e.target.dataset.incr) , 'incr') if @app.view.EGS 
@@ -29,6 +30,9 @@ module.exports = Backbone.View.extend
 		do @update
 	heightSetRel: (e) ->
 		@app.view.EGS.setHeight( parseFloat(e.target.dataset.setrel) , 'rel') if @app.view.EGS 
+		do @update
+	bgSetc: (e) ->
+		@app.view.EGS.setBackgroundColor( e.target.dataset.setc ) if @app.view.EGS 
 		do @update
 	
 	stepRel: (e) ->
