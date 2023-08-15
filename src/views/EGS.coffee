@@ -145,6 +145,7 @@ class Display
 	constructor: (@domElementID) ->
 		@scene = new THREE.Scene
 		@_addRenderer @domElementID
+		@_setBackgroundColor '#ccc'
 		do @_addLights
 		do @_addCamera
 		do @_addControls
