@@ -145,7 +145,6 @@ class Display
 	constructor: (@domElementID) ->
 		@scene = new THREE.Scene
 		@_addRenderer @domElementID
-		@_setBackgroundColor '#ccc'
 		do @_addLights
 		do @_addCamera
 		do @_addControls
@@ -221,21 +220,58 @@ class EGS_View extends Backbone.View
 	elements: []
 	steps: []
 	stepNo: 0
+	stepper: 0
+	counter: 0
+	turnRate: 0
+	bgColor: ''
 	
 	colorTable = []
 	
 	setTurnRate: (rate) ->
-		@display.setTurnRate Math.max 0, rate
+		@turnRate = rate
+		@display.setTurnRate @turnRate
+		do @app.view.SecondaryNav.update
+	incrTurnRate: (value) ->
+		@turnRate = @turnRate + value
+		if (@turnRate < 0) then @turnRate = 0
+		@setTurnRate @turnRate
 	setHeight: (height, relation) ->
 		@display.setHeight height, relation
+		do @app.view.SecondaryNav.update
 	setBackgroundColor: (color) ->
-		@display.setBackgroundColor color
+		@bgColor = color
+		@display.setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+	setStepper: (value) ->
+		@stepper = value
+		do @app.view.SecondaryNav.update
+	setStep: (step) ->
+		@stepNo = step
+		console.log "Aufbauschritt: " + @steps[@stepNo] + " (index: " + @stepNo + ")"
+		@updateConstruct @stepNo
+		do @app.view.SecondaryNav.update
+	incrStep: (value) ->
+		@stepNo = @stepNo + value
+		if (@stepNo >= @steps.length) then @stepNo = 0
+		if (@stepNo < 0) then @stepNo = @steps.length - 1
+		@setStep @stepNo
 	resetView: ->
-		do @display.resetView
+		@setBackgroundColor '#ccc' 
+		@setTurnRate 2
+		@setHeight 1, 'rel'
+		do @app.view.SecondaryNav.update
+	
+	timeTrigger: ->
+		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
+		do @app.view.SecondaryNav.update
 	
 	constructor: (@app, @domElementID) ->
 		super()
 		@display = new Display @domElementID
+
+		setInterval (=> do @timeTrigger), 1000
+		@updateConstruct @stepNo
+		do @resetView 
 	
 	showConstruct: (construction) ->
 		@elements = [];
@@ -247,14 +283,15 @@ class EGS_View extends Backbone.View
 		
 		@steps = @steps.filter (v,i,x) -> i is x.indexOf v 
 		@steps.sort (a,b) -> a-b
+		@stepNo = @steps.length - 1
 		
-		@app.view.SecondaryNav.setSteps @steps
-		
+		do @app.view.SecondaryNav.render
 		do @display.removeAll
 		for e in @elements
 			@display.add e
 		
 		@updateConstruct @stepNo
+		do @resetView
 	
 	updateConstruct: (step) ->
 		@stepNo = step
