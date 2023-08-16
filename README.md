@@ -108,6 +108,15 @@ Aktuell sind folgende Elemente implementiert:
 | B200      | Beläge 200 cm lang        | ja                    | Liste Breiten, z.B. 32,24,14  |
 | B250      | Beläge 250 cm lang        | ja                    | Liste Breiten, z.B. 32,24,14  |
 | B300      | Beläge 300 cm lang        | ja                    | Liste Breiten, z.B. 32,24,14  |
+| T100      | Traverse 100 cm           | ja                    |                               |
+| T200      | Traverse 200 cm           | ja                    |                               |
+| T250      | Traverse 250 cm           | ja                    |                               |
+| T300      | Traverse 300 cm           | ja                    |                               |
+| T400      | Traverse 400 cm           | ja                    |                               |
+| T500      | Traverse 500 cm           | ja                    |                               |
+| T600      | Traverse 600 cm           | ja                    |                               |
+| T700      | Traverse 700 cm           | ja                    |                               |
+| T800      | Traverse 800 cm           | ja                    |                               |
 | HV        | Hängegerüstverbinder      | ja                    |                               |
 | RO100     | Gerüstrohr 100 cm lang    | nein                  | Drehungen (RX, RY, RZ)        |
 | ROxxx     | Gerüstrohr xxx cm lang    | nein                  | z.B. "RZ = 90 / RX = -45"     |

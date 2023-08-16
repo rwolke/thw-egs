@@ -7,6 +7,7 @@ VertikalDiagonale = require("./elements/VertikalDiagonale")
 Belag = require("./elements/Belag")
 HaengegeruestVerbinder = require("./elements/HaengegeruestVerbinder")
 Geruestrohr = require("./elements/Geruestrohr")
+Traverse = require("./elements/Traverse")
 
 class EGS_Elements
 	
@@ -91,6 +92,16 @@ class EGS_Elements
 			when "B200" then new Belag 200, x, y, h, direction, special
 			when "B250" then new Belag 250, x, y, h, direction, special
 			when "B300" then new Belag 300, x, y, h, direction, special
+
+			when "T100" then new Traverse 100, x, y, h, direction
+			when "T200" then new Traverse 200, x, y, h, direction
+			when "T250" then new Traverse 250, x, y, h, direction
+			when "T300" then new Traverse 300, x, y, h, direction
+			when "T400" then new Traverse 400, x, y, h, direction
+			when "T500" then new Traverse 500, x, y, h, direction
+			when "T600" then new Traverse 600, x, y, h, direction
+			when "T700" then new Traverse 700, x, y, h, direction
+			when "T800" then new Traverse 800, x, y, h, direction
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
 
