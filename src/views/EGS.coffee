@@ -76,6 +76,7 @@ class Display
 	controls: null
 
 	exportImageSnapshot: false
+	exportImageBackgroundTransparent = false
 	
 	animationRequest: null
 	
@@ -90,6 +91,7 @@ class Display
 		if hasWebGL
 			@renderer = new THREE.WebGLRenderer
 				antialias: true
+				alpha: true
 		else
 			@renderer = new THREE.CanvasRenderer()
 		@renderer.setPixelRatio window.devicePixelRatio
@@ -144,7 +146,16 @@ class Display
 	_animationFrame: ->
 		@animationRequest = window.requestAnimationFrame (=> do @_animationFrame )
 		do @calcCamPos
+
+		if (@exportImageSnapshot && @exportImageBackgroundTransparent)
+			bgColor = @scene.background
+			@scene.background = null
+
 		@renderer.render @scene, @camera
+
+		if (@exportImageSnapshot && @exportImageBackgroundTransparent)
+			@scene.background = bgColor
+			
 		if (@exportImageSnapshot)
 			do @createImage
 			@exportImageSnapshot = false
@@ -190,6 +201,11 @@ class Display
 	
 	exportImage: ->
 		@exportImageSnapshot = true
+		@exportImageBackgroundTransparent = false
+
+	exportImageTransparent: ->
+		@exportImageSnapshot = true
+		@exportImageBackgroundTransparent = true
 
 	removeAll: ->
 		@scene.remove @scene.children[0] while @scene.children.length
@@ -291,6 +307,8 @@ class EGS_View extends Backbone.View
 		do @app.view.SecondaryNav.update
 	exportImage: ->
 		do @display.exportImage
+	exportImageTransparent: ->
+		do @display.exportImageTransparent
 	
 	timeTrigger: ->
 		@incrStep 1 if @stepper and ++@counter %% @stepper is 0

@@ -17,6 +17,7 @@ module.exports = Backbone.View.extend
 		"click .height-setrel": "setHeightRel"
 		"click .bg-set": "setBackgroundColor"
 		"click .export-image": "exportImage"
+		"click .export-image-transparent": "exportImageTransparent"
 	
 	setStepper: (e) ->
 		@app.view.EGS.setStepper parseInt(e.target.dataset.val)
@@ -44,6 +45,8 @@ module.exports = Backbone.View.extend
 		do @app.view.EGS.resetView
 	exportImage: (e) ->
 		do @app.view.EGS.exportImage
+	exportImageTransparent: (e) ->
+		do @app.view.EGS.exportImageTransparent
 	
 	initialize: (app) -> 
 		@app = app
