@@ -11,6 +11,7 @@ Traverse = require("./elements/Traverse")
 Treppenwange = require("./elements/Treppenwange")
 Treppenstufen = require("./elements/Treppenstufen")
 Kantholz = require("./elements/Kantholz")
+Betonblockstein = require("./elements/Betonblockstein")
 
 class EGS_Elements
 	
@@ -115,6 +116,7 @@ class EGS_Elements
 			when "TRS200" then new Treppenstufen 200, x, y, h, direction
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
+			when "BBS" then new Betonblockstein 120, 60, 60, x, y, h, direction
 
 			else
 				if (name == null || name == undefined)
