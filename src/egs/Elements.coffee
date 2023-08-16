@@ -10,6 +10,7 @@ Geruestrohr = require("./elements/Geruestrohr")
 Traverse = require("./elements/Traverse")
 Treppenwange = require("./elements/Treppenwange")
 Treppenstufen = require("./elements/Treppenstufen")
+Kantholz = require("./elements/Kantholz")
 
 class EGS_Elements
 	
@@ -118,10 +119,14 @@ class EGS_Elements
 			else
 				if (name == null || name == undefined)
 					throw new Error('Unbekanntes Element')
-				if (name.startsWith('RO')) # Rohr
+				else if (name.startsWith('RO'))
 					length = name.slice(2)
 					length = parseInt(length)
 					new Geruestrohr length, x, y, h, direction, special
+				else if (name.startsWith('KH'))
+					length = name.slice(2)
+					length = parseInt(length)
+					new Kantholz length, x, y, h, direction, special
 				else throw new Error('Unbekanntes Element')
 
 module.exports = EGS_Elements
