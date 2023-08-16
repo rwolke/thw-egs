@@ -199,6 +199,8 @@ class Display
 			when "incr" then @camHeight + 10 * height
 			when "rel" then 2 * @center.y * height
 			else @camHeight
+		@camera.position.y = @camHeight
+		@camera.lookAt @center
 	
 	calcCamPos: (override) ->
 		if override
