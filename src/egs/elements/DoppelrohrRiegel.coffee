@@ -8,7 +8,7 @@ class DoppelrohrRiegel extends THREE.Geometry
 		r = Helpers.cylinder Common.RohrDurchmesserAussen, Common.RohrDurchmesserInnen, length - 150
 		r.applyMatrix4 Helpers.matrix(75, 0, 0, 'Y', 1)
 		r.merge Common.keilKupplungRiegel()
-		r.merge Common.keilKupplungRiegel(), Helpers.matrix(length, 0, 0, 'y', 2)
+		r.merge Common.keilKupplungRiegel(), Helpers.matrix(length, 0, 0, 'Z', 2)
 		
 		p = new THREE.CurvePath();
 		p.add(new THREE.LineCurve3((new THREE.Vector3(    0,   0, 0)),(new THREE.Vector3(  200, 100, 0))));

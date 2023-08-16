@@ -8,7 +8,7 @@ class Riegel extends THREE.Geometry
 		r = Helpers.cylinder Common.RohrDurchmesserAussen, Common.RohrDurchmesserInnen, length - 150
 		r.applyMatrix4 Helpers.matrix(75, 0, 0, 'Y', 1)
 		r.merge Common.keilKupplungRiegel()
-		r.merge Common.keilKupplungRiegel(), Helpers.matrix(length, 0, 0, 'y', 2)
+		r.merge Common.keilKupplungRiegel(), Helpers.matrix(length, 0, 0, 'Z', 2)
 		r.applyMatrix4 Helpers.matrix(0,0,0, 'X', -1)
 		r
 	

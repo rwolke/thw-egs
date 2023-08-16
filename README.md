@@ -50,33 +50,82 @@ Der Aufbau nach diesem Schema sollte überwiegend selbsterklärend sein, deshalb
 
 Aktuell sind folgende Elemente implementiert:
 
-| Kürzel | Element               | Richtung erforderlich | Besonderheit                  |
-| :----- | :-------------------- | :-------------------: | :---------------------------- |
-| AnfSt  | Anfangsstück          |  zukünftig (Bohrung)  |                               |
-| V50    | Vertikalstiel 50 cm   |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| V100   | Vertikalstiel 100 cm  |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| V150   | Vertikalstiel 150 cm  |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| V200   | Vertikalstiel 200 cm  |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| V300   | Vertikalstiel 300 cm  |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| V400   | Vertikalstiel 400 cm  |  zukünftig (Bohrung)  | _oRV_ wenn kein Rohrverbinder |
-| R25    | Riegel 25 cm          |          ja           |                               |
-| R50    | Riegel 50 cm          |          ja           |                               |
-| R100   | Riegel 100 cm         |          ja           |                               |
-| R200   | Riegel 200 cm         |          ja           |                               |
-| R300   | Riegel 300 cm         |          ja           |                               |
-| DR200  | Doppelrohr-Riegel 2 m |          ja           |                               |
-| DR300  | Doppelrohr-Riegel 3 m |          ja           |                               |
-| D100   | Diagonale 1 x 2 m     |          ja           | _pos_ oder _neg_ für Seite    |
-| D150   | Diagonale 1,5 x 2 m   |          ja           | _pos_ oder _neg_ für Seite    |
-| D200   | Diagonale 2 x 2 m     |          ja           | _pos_ oder _neg_ für Seite    |
-| D300   | Diagonale 3 x 2 m     |          ja           | _pos_ oder _neg_ für Seite    |
-| DS200  | Diagonale 2 x 1 m     |          ja           | _pos_ oder _neg_ für Seite    |
-| F40    | Gewindefuß 40 cm      |         nein          |                               |
-| F60    | Gewindefuß 60 cm      |         nein          |                               |
-| B100   | Beläge 100 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
-| B200   | Beläge 200 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
-| B300   | Beläge 300 cm lang    |          ja           | Liste Breiten, z.B. 32,32,24  |
-| HV     | Hängegerüstverbinder  |          ja           |                               |
+| Kürzel    | Element                      | Richtung erforderlich | Besonderheit                  |
+| --------- | ---------------------------- | --------------------- | ----------------------------- |
+| AnfSt     | Anfangsstück                 | zukünftig (Bohrung)   |                               |
+| V50       | Vertikalstiel 50 cm          | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V100      | Vertikalstiel 100 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V150      | Vertikalstiel 150 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V200      | Vertikalstiel 200 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V250      | Vertikalstiel 250 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V300      | Vertikalstiel 300 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| V400      | Vertikalstiel 400 cm         | zukünftig (Bohrung)   | _oRV_ wenn kein Rohrverbinder |
+| R15       | Riegel 15 cm                 | ja                    |                               |
+| R25       | Riegel 25 cm                 | ja                    |                               |
+| R50       | Riegel 50 cm                 | ja                    |                               |
+| R75       | Riegel 75 cm                 | ja                    |                               |
+| R100      | Riegel 100 cm                | ja                    |                               |
+| R125      | Riegel 125 cm                | ja                    |                               |
+| R150      | Riegel 150 cm                | ja                    |                               |
+| R200      | Riegel 200 cm                | ja                    |                               |
+| R250      | Riegel 250 cm                | ja                    |                               |
+| R400      | Riegel 400 cm                | ja                    |                               |
+| R300      | Riegel 300 cm                | ja                    |                               |
+| DR150     | Doppelrohr-Riegel 150 cm     | ja                    |                               |
+| DR200     | Doppelrohr-Riegel 200 cm     | ja                    |                               |
+| DR250     | Doppelrohr-Riegel 250 cm     | ja                    |                               |
+| DR300     | Doppelrohr-Riegel 300 cm     | ja                    |                               |
+| VD50/200  | Diagonale 50 cm x 200 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD75/200  | Diagonale 75 cm x 200 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD100/200 | Diagonale 100 cm x 200 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD150/200 | Diagonale 150 cm x 200 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD200/200 | Diagonale 200 cm x 200 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD250/200 | Diagonale 250 cm x 200 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD300/200 | Diagonale 300 cm x 200 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD50/150  | Diagonale 50 cm x 150 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD75/150  | Diagonale 75 cm x 150 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD100/150 | Diagonale 100 cm x 150 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD150/150 | Diagonale 150 cm x 150 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD200/150 | Diagonale 200 cm x 150 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD250/150 | Diagonale 250 cm x 150 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD300/150 | Diagonale 300 cm x 150 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD50/100  | Diagonale 50 cm x 100 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD75/100  | Diagonale 75 cm x 100 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD100/100 | Diagonale 100 cm x 100 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD150/100 | Diagonale 150 cm x 100 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD200/100 | Diagonale 200 cm x 100 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD250/100 | Diagonale 250 cm x 100 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD300/100 | Diagonale 300 cm x 100 cm    | ja                    | _pos_ oder _neg_ für Seite    |
+| VD100/50  | Diagonale 100 cm x 50 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD150/50  | Diagonale 150 cm x 50 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD200/50  | Diagonale 200 cm x 50 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| VD300/50  | Diagonale 300 cm x 50 cm     | ja                    | _pos_ oder _neg_ für Seite    |
+| F40       | Gewindefuß 40 cm             | nein                  |                               |
+| F60       | Gewindefuß 60 cm             | nein                  |                               |
+| B75       | Beläge 75 cm lang            | ja                    | Liste Breiten, z.B. 32,24,14  |
+| B100      | Beläge 100 cm lang           | ja                    | Liste Breiten, z.B. 32,24,14  |
+| B150      | Beläge 150 cm lang           | ja                    | Liste Breiten, z.B. 32,24,14  |
+| B200      | Beläge 200 cm lang           | ja                    | Liste Breiten, z.B. 32,24,14  |
+| B250      | Beläge 250 cm lang           | ja                    | Liste Breiten, z.B. 32,24,14  |
+| B300      | Beläge 300 cm lang           | ja                    | Liste Breiten, z.B. 32,24,14  |
+| T100      | Traverse 100 cm              | ja                    |                               |
+| T200      | Traverse 200 cm              | ja                    |                               |
+| T250      | Traverse 250 cm              | ja                    |                               |
+| T300      | Traverse 300 cm              | ja                    |                               |
+| T400      | Traverse 400 cm              | ja                    |                               |
+| T500      | Traverse 500 cm              | ja                    |                               |
+| T600      | Traverse 600 cm              | ja                    |                               |
+| T700      | Traverse 700 cm              | ja                    |                               |
+| T800      | Traverse 800 cm              | ja                    |                               |
+| TRWL100   | Treppenwange (Links) 100 cm  | ja                    |                               |
+| TRWR100   | Treppenwange (Rechts) 100 cm | ja                    |                               |
+| TRWL200   | Treppenwange (Links) 200 cm  | ja                    |                               |
+| TRWR200   | Treppenwange (Rechts) 200 cm | ja                    |                               |
+| TRS100    | Treppenstufen 100 cm         | ja                    |                               |
+| TRS200    | Treppenstufen 200 cm         | ja                    |                               |
+| HV        | Hängegerüstverbinder         | ja                    |                               |
+| RO100     | Gerüstrohr 100 cm lang       | nein                  | Drehungen (RX, RY, RZ)        |
+| ROxxx     | Gerüstrohr xxx cm lang       | nein                  | z.B. "RZ = 90 / RX = -45"     |
 
 ### Daten ergänzen - eigene Konstruktionen
 
