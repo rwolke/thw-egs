@@ -10,6 +10,9 @@ Geruestrohr = require("./elements/Geruestrohr")
 Traverse = require("./elements/Traverse")
 Treppenwange = require("./elements/Treppenwange")
 Treppenstufen = require("./elements/Treppenstufen")
+Kantholz = require("./elements/Kantholz")
+Betonblockstein = require("./elements/Betonblockstein")
+EuroPalette = require("./elements/EuroPalette")
 
 class EGS_Elements
 	
@@ -114,14 +117,20 @@ class EGS_Elements
 			when "TRS200" then new Treppenstufen 200, x, y, h, direction
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
+			when "BBS" then new Betonblockstein 120, 60, 60, x, y, h, direction
+			when "EPAL" then new EuroPalette x, y, h, direction
 
 			else
 				if (name == null || name == undefined)
 					throw new Error('Unbekanntes Element')
-				if (name.startsWith('RO')) # Rohr
+				else if (name.startsWith('RO'))
 					length = name.slice(2)
 					length = parseInt(length)
 					new Geruestrohr length, x, y, h, direction, special
+				else if (name.startsWith('KH'))
+					length = name.slice(2)
+					length = parseInt(length)
+					new Kantholz length, x, y, h, direction, special
 				else throw new Error('Unbekanntes Element')
 
 module.exports = EGS_Elements
