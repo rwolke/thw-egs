@@ -199,8 +199,7 @@ class Display
 			when "incr" then @camHeight + 10 * height
 			when "rel" then 2 * @center.y * height
 			else @camHeight
-		@camera.position.y = @camHeight
-		@camera.lookAt @center
+		@calcCamPos true
 	
 	calcCamPos: (override) ->
 		if override
@@ -303,6 +302,7 @@ class EGS_View extends Backbone.View
 			@display.add e
 		
 		@updateConstruct @stepNo
+		@display.calcCamPos true
 	
 	updateConstruct: (step) ->
 		@stepNo = step
@@ -325,9 +325,9 @@ class EGS_View extends Backbone.View
 		do @app.view.SecondaryNav.update
 
 	_initSettings: ->
-		@stepper = @_getSetting('stepper', @stepper)
-		@turnRate = @_getSetting('turnRate', @turnRate)
-		@height = @_getSetting('height', @height)
+		@stepper = parseInt(@_getSetting('stepper', @stepper))
+		@turnRate = parseInt(@_getSetting('turnRate', @turnRate))
+		@height = parseInt(@_getSetting('height', @height))
 		@heightRelation = @_getSetting('heightRelation', @heightRelation)
 		@bgColor = @_getSetting('bgColor', @bgColor)
 

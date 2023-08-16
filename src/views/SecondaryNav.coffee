@@ -1,4 +1,5 @@
 Backbone = require "backbone"
+Package = require "../../package.json"
 
 module.exports = Backbone.View.extend
 	el: document.getElementById 'secondaryNav'
@@ -67,5 +68,6 @@ module.exports = Backbone.View.extend
 			stepper: @app.view.EGS.stepper
 			turnMode: if @app.view.EGS.turnRate > 0 then @app.view.EGS.turnRate + ' U/min' else "Manuell"
 			turnRate: @app.view.EGS.turnRate
+			version: Package.version
 		@el.innerHTML = @template tpl
 		
