@@ -69,19 +69,22 @@ class Display
 	camHeight: 0
 	camHeightOffset: 0
 	
+	canvas: null
 	scene: null
 	renderer: null
 	camera: null
 	controls: null
+
+	exportImageSnapshot: false
 	
 	animationRequest: null
 	
 	_addRenderer: (domElementID)->
 		hasWebGL = false
 		try
-			canvas = document.createElement 'canvas' 
+			@canvas = document.createElement 'canvas' 
 			hasWebGL = !! ( window.WebGLRenderingContext && 
-				( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) )
+				( @canvas.getContext( 'webgl' ) || @canvas.getContext( 'experimental-webgl' ) )
 			)
 	
 		if hasWebGL
@@ -91,7 +94,8 @@ class Display
 			@renderer = new THREE.CanvasRenderer()
 		@renderer.setPixelRatio window.devicePixelRatio
 		@renderer.setSize window.innerWidth, window.innerHeight
-		document.getElementById(domElementID).appendChild @renderer.domElement
+		@canvas = @renderer.domElement
+		document.getElementById(domElementID).appendChild @canvas
 	
 	_setBackgroundColor: (color) ->
 		@scene.background = new THREE.Color( color )
@@ -141,6 +145,9 @@ class Display
 		@animationRequest = window.requestAnimationFrame (=> do @_animationFrame )
 		do @calcCamPos
 		@renderer.render @scene, @camera
+		if (@exportImageSnapshot)
+			do @createImage
+			@exportImageSnapshot = false
 	
 	constructor: (@domElementID) ->
 		@scene = new THREE.Scene
@@ -152,7 +159,6 @@ class Display
 		do @onWindowResize
 		do @_animationStart
 		
-	
 	resetView: ->
 		@center = new THREE.Vector3();
 		@center = @bbox.getCenter @center
@@ -171,6 +177,20 @@ class Display
 		
 		@controls.target.copy @center
 	
+	createImage: ->
+		url = @canvas.toDataURL 'image/png'
+
+		link = document.createElement 'a'
+
+		link.setAttribute 'href', url
+		link.setAttribute 'target', '_blank'
+		link.setAttribute 'download', 'export.png'
+
+		do link.click
+	
+	exportImage: ->
+		@exportImageSnapshot = true
+
 	removeAll: ->
 		@scene.remove @scene.children[0] while @scene.children.length
 		do @_addLights
@@ -269,6 +289,8 @@ class EGS_View extends Backbone.View
 		do @_setDefaultSettings
 		do @_applySettings
 		do @app.view.SecondaryNav.update
+	exportImage: ->
+		do @display.exportImage
 	
 	timeTrigger: ->
 		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
