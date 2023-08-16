@@ -95,11 +95,18 @@ module.exports =
 					{
 						loader: 'handlebars-loader'
 						options: {
-							inlineRequires: 'cmp'
+							inlineRequires: 'assets'
 							helperDirs: [__dirname + "/src/_helpers/handlebars"]
 						}
 					}
 				]
+			}
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'assets/[hash][ext][query]'
+				}
 			}
 		]
 	
