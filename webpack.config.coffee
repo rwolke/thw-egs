@@ -73,17 +73,6 @@ module.exports =
 				]
 			}
 			{
-				test: /bootstrap\/js\//
-				use: [
-					{
-						loader: 'imports'
-						options: {
-							jQuery: 'jquery'
-						}
-					}
-				] 
-			}
-			{
 				test: /\.coffee$/
 				use: [
 					{ loader: "coffee-loader" }
