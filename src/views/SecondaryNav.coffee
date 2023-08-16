@@ -4,110 +4,68 @@ module.exports = Backbone.View.extend
 	el: document.getElementById 'secondaryNav'
 	template: require 'templates/SecondaryNav'
 	
-	steps: []
-	step: 0
-	counter: 0
-	stepper: 5
-	rotRate: 2
-	
 	events: 
-		"click .step-rel": "stepRel"
-		"click .step-abs": "stepAbs"
-		"click .step-auto": "stepAuto"
-		"click .rot-incr": "rotationIncr"
-		"click .rot-setp": "rotationSetp"
-		"click .view-reset": "viewReset"
-		"click .height-incr": "heightIncr"
-		"click .height-setabs": "heightSetAbs"
-		"click .height-setrel": "heightSetRel"
-		"click .bg-setc": "bgSetc"
-
-	heightIncr: (e) ->
+		"click .step-rel": "incrStep"
+		"click .step-abs": "setStep"
+		"click .step-auto": "setStepper"
+		"click .rot-incr": "incrTurnRate"
+		"click .rot-set": "setTurnRate"
+		"click .reset-view": "resetView"
+		"click .height-setincr": "setHeightIncr"
+		"click .height-setabs": "setHeightAbs"
+		"click .height-setrel": "setHeightRel"
+		"click .bg-set": "setBackgroundColor"
+	
+	setStepper: (e) ->
+		@app.view.EGS.setStepper parseInt(e.target.dataset.val)
+	incrStep: (e) ->
+		@app.view.EGS.incrStep parseInt(e.target.dataset.step)
+	setStep: (e) ->
+		@app.view.EGS.setStep parseInt(e.target.dataset.step)
+	incrTurnRate: (e) ->
+		@app.view.EGS.incrTurnRate parseFloat(e.target.dataset.incr)
+	setTurnRate: (e) ->
+		@app.view.EGS.setTurnRate parseFloat(e.target.dataset.setp)
+	setHeightIncr: (e) ->
 		@app.view.EGS.setHeight( parseInt(e.target.dataset.incr) , 'incr') if @app.view.EGS 
 		do @update
-	heightSetAbs: (e) ->
+	setHeightAbs: (e) ->
 		@app.view.EGS.setHeight( parseInt(e.target.dataset.setabs) , 'abs') if @app.view.EGS 
 		do @update
-	heightSetRel: (e) ->
+	setHeightRel: (e) ->
 		@app.view.EGS.setHeight( parseFloat(e.target.dataset.setrel) , 'rel') if @app.view.EGS 
 		do @update
-	bgSetc: (e) ->
+	setBackgroundColor: (e) ->
 		@app.view.EGS.setBackgroundColor( e.target.dataset.setc ) if @app.view.EGS 
 		do @update
+	resetView: (e) ->
+		do @app.view.EGS.resetView
 	
-	stepRel: (e) ->
-		@incrStep e.target.dataset.step
-	stepAbs: (e) ->
-		@setStep e.target.dataset.step
-	stepAuto: (e) ->
-		@stepper = parseInt e.target.dataset.val
-		do @render
-	rotationIncr: (e) ->
-		@rotRate += parseFloat e.target.dataset.incr
-		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS 
-		do @update
-	rotationSetp: (e) ->
-		@rotRate = parseFloat e.target.dataset.setp
-		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS 
-		do @update
-	
-	viewReset: (e) ->
-		@rotRate = 2
-		@app.view.EGS.setTurnRate @rotRate if @app.view.EGS
-		do @app.view.EGS.resetView if @app.view.EGS
-		do @update
-		
-	
-	startup: ->
-		@setStep 0
-		setInterval (=> do @timeTrigger), 1000
-		@app.view.EGS.updateConstruct @step 
-		@app.view.EGS.setTurnRate @rotRate
-	
-	setSteps: (steps) ->
-		@steps = steps
-		@step = 0
-		do @render
-	
-	incrStep: (dir) ->
-		dir = parseInt(dir)
-		return @setStep @step + @steps.length + dir if @step + dir < 0
-		return @setStep @step - @steps.length + dir if @step + dir >= @steps.length
-		@setStep @step + dir
-	
-	setStep: (step) ->
-		@step = parseInt(step)
-		console.log "Aufbauschritt: " + @steps[@step] + " (index: " + @step + ")"
-		@app.view.EGS.updateConstruct @step if @app.view.EGS 
-		do @update
-	
-	timeTrigger: ->
-		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
-	
-	initialize: (@app) -> 
-		do @render
+	initialize: (app) -> 
+		@app = app
 		
 	update: ->
-		$('#stepNo', @$el).text @steps[@step]
+		if (!@app.view.EGS) then return
+
+		$('#stepperMode', @$el).text if @app.view.EGS.stepper > 0 then 'Automatisch' else "Manuell"
+		$('.stepper li a', @$el).removeClass 'active'
+		$('.stepper-' + @app.view.EGS.stepper, @$el).addClass 'active'
+		$('#stepNo', @$el).text @app.view.EGS.steps[@app.view.EGS.stepNo]
 		$('.steps li a', @$el).removeClass 'active'
-		$('.step-' + @step, @$el).addClass 'active'
-		# $('#rotMode', @$el).text if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
+		$('.step-' + @app.view.EGS.stepNo, @$el).addClass 'active'
+		$('#turnMode', @$el).text if @app.view.EGS.turnRate > 0 then @app.view.EGS.turnRate + ' U/min' else "Manuell"
 		$('.rots li a', @$el).removeClass 'active'
-		$('.rot-' + @rotRate, @$el).addClass 'active'
+		$('.rot-' + @app.view.EGS.turnRate, @$el).addClass 'active'
 		
 	render: ->
-		steps = []
-		for i of @steps
-			steps.push 
-				i: i
-				name: "Schritt " + @steps[i]
+		if (!@app.view.EGS) then return
 			
 		tpl = 
-			steps: steps
-			step: @step
-			stepName: @steps[@step]
-			auto: @stepper
-			rotMode: if @rotRate > 0 then @rotRate + ' U/min' else "Manuell"
-			rate: @rotRate
+			steps: @app.view.EGS.steps
+			step: @app.view.EGS.steps[@app.view.EGS.stepNo]
+			stepperMode: if @app.view.EGS.stepper > 0 then 'Automatisch' else "Manuell"
+			stepper: @app.view.EGS.stepper
+			turnMode: if @app.view.EGS.turnRate > 0 then @app.view.EGS.turnRate + ' U/min' else "Manuell"
+			turnRate: @app.view.EGS.turnRate
 		@el.innerHTML = @template tpl
 		

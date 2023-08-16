@@ -145,7 +145,6 @@ class Display
 	constructor: (@domElementID) ->
 		@scene = new THREE.Scene
 		@_addRenderer @domElementID
-		@_setBackgroundColor '#ccc'
 		do @_addLights
 		do @_addCamera
 		do @_addControls
@@ -221,21 +220,68 @@ class EGS_View extends Backbone.View
 	elements: []
 	steps: []
 	stepNo: 0
+	stepper: 0
+	counter: 0
+	turnRate: 0
+	height: 0
+	heightRelation: 'abs'
+	bgColor: ''
 	
 	colorTable = []
 	
 	setTurnRate: (rate) ->
-		@display.setTurnRate Math.max 0, rate
+		@turnRate = rate
+		@display.setTurnRate @turnRate
+		do @app.view.SecondaryNav.update
+		@_saveSetting('turnRate', @turnRate)
+	incrTurnRate: (value) ->
+		@turnRate = @turnRate + value
+		if (@turnRate < 0) then @turnRate = 0
+		@setTurnRate @turnRate
 	setHeight: (height, relation) ->
+		@height = height
+		@heightRelation = relation
 		@display.setHeight height, relation
+		do @app.view.SecondaryNav.update
+		@_saveSetting('height', @height)
+		@_saveSetting('heightRelation', @heightRelation)
 	setBackgroundColor: (color) ->
-		@display.setBackgroundColor color
+		@bgColor = color
+		@display.setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+		@_saveSetting('bgColor', @bgColor)
+	setStepper: (value) ->
+		@stepper = value
+		do @app.view.SecondaryNav.update
+		@_saveSetting('stepper', @stepper)
+	setStep: (step) ->
+		@stepNo = step
+		console.log "Aufbauschritt: " + @steps[@stepNo] + " (index: " + @stepNo + ")"
+		@updateConstruct @stepNo
+		do @app.view.SecondaryNav.update
+	incrStep: (value) ->
+		@stepNo = @stepNo + value
+		if (@stepNo >= @steps.length) then @stepNo = 0
+		if (@stepNo < 0) then @stepNo = @steps.length - 1
+		@setStep @stepNo
 	resetView: ->
-		do @display.resetView
+		do @_setDefaultSettings
+		do @_applySettings
+		do @app.view.SecondaryNav.update
+	
+	timeTrigger: ->
+		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
+		do @app.view.SecondaryNav.update
 	
 	constructor: (@app, @domElementID) ->
 		super()
 		@display = new Display @domElementID
+
+		setInterval (=> do @timeTrigger), 1000
+		@updateConstruct @stepNo
+		do @_setDefaultSettings
+		do @_initSettings
+		do @_applySettings
 	
 	showConstruct: (construction) ->
 		@elements = [];
@@ -247,9 +293,9 @@ class EGS_View extends Backbone.View
 		
 		@steps = @steps.filter (v,i,x) -> i is x.indexOf v 
 		@steps.sort (a,b) -> a-b
+		@stepNo = @steps.length - 1
 		
-		@app.view.SecondaryNav.setSteps @steps
-		
+		do @app.view.SecondaryNav.render
 		do @display.removeAll
 		for e in @elements
 			@display.add e
@@ -261,6 +307,37 @@ class EGS_View extends Backbone.View
 		for e in @elements
 			e.setStep parseInt @steps[@stepNo]
 		do @render
+
+	_setDefaultSettings: ->
+		@stepper = 0
+		@turnRate = 0
+		@height = 1
+		@heightRelation = 'rel'
+		@bgColor = '#ccc'
+
+	_applySettings: ->
+		@setStepper @stepper
+		@setTurnRate @turnRate
+		@setHeight @height, @heightRelation
+		@setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+
+	_initSettings: ->
+		@stepper = @_getSetting('stepper', @stepper)
+		@turnRate = @_getSetting('turnRate', @turnRate)
+		@height = @_getSetting('height', @height)
+		@heightRelation = @_getSetting('heightRelation', @heightRelation)
+		@bgColor = @_getSetting('bgColor', @bgColor)
+
+	_saveSetting: (key, val) ->
+		if window.localStorage
+			window.localStorage.setItem key, val
+	
+	_getSetting: (key, defVal) ->
+		if window.localStorage
+			if window.localStorage.getItem key
+				return window.localStorage.getItem key
+		return defVal
 		
 	_hexToRGB = (hex) ->
 		r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec hex
