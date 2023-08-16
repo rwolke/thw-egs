@@ -109,6 +109,8 @@ Aktuell sind folgende Elemente implementiert:
 | B250      | Beläge 250 cm lang        | ja                    | Liste Breiten, z.B. 32,24,14  |
 | B300      | Beläge 300 cm lang        | ja                    | Liste Breiten, z.B. 32,24,14  |
 | HV        | Hängegerüstverbinder      | ja                    |                               |
+| RO100     | Gerüstrohr 100 cm lang    | nein                  | Drehungen (RX, RY, RZ)        |
+| ROxxx     | Gerüstrohr xxx cm lang    | nein                  | z.B. "RZ = 90 / RX = -45"     |
 
 ### Daten ergänzen - eigene Konstruktionen
 

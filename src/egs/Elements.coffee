@@ -6,6 +6,7 @@ DoppelrohrRiegel = require("./elements/DoppelrohrRiegel")
 VertikalDiagonale = require("./elements/VertikalDiagonale")
 Belag = require("./elements/Belag")
 HaengegeruestVerbinder = require("./elements/HaengegeruestVerbinder")
+Geruestrohr = require("./elements/Geruestrohr")
 
 class EGS_Elements
 	
@@ -93,6 +94,13 @@ class EGS_Elements
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
 
-			else throw new Error('Unbekanntes Element')
-	
+			else
+				if (name == null || name == undefined)
+					throw new Error('Unbekanntes Element')
+				if (name.startsWith('RO')) # Rohr
+					length = name.slice(2)
+					length = parseInt(length)
+					new Geruestrohr length, x, y, h, direction, special
+				else throw new Error('Unbekanntes Element')
+
 module.exports = EGS_Elements
