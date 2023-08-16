@@ -131,6 +131,7 @@ Aktuell sind folgende Elemente implementiert:
 |           |                                    |                       | Bei Höhe 0 liegt das Kantholz auf den Belägen |
 |           |                                    |                       | Höhe -20 für Bodenhöhe                        |
 |           |                                    |                       | Vorgeschlagene Farbe: #A1662F                 |
+| EPAL      | Euro-Palette                       | ja                    | Vorgeschlagene Farbe: #A1662F                 |
 | BBS       | Betonblockstein (120 x 60 x 60 cm) | ja                    | Vorgeschlagene Farbe: #917f69                 |
 
 ### Daten ergänzen - eigene Konstruktionen

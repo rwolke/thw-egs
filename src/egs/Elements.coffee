@@ -12,6 +12,7 @@ Treppenwange = require("./elements/Treppenwange")
 Treppenstufen = require("./elements/Treppenstufen")
 Kantholz = require("./elements/Kantholz")
 Betonblockstein = require("./elements/Betonblockstein")
+EuroPalette = require("./elements/EuroPalette")
 
 class EGS_Elements
 	
@@ -117,6 +118,7 @@ class EGS_Elements
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
 			when "BBS" then new Betonblockstein 120, 60, 60, x, y, h, direction
+			when "EPAL" then new EuroPalette x, y, h, direction
 
 			else
 				if (name == null || name == undefined)
