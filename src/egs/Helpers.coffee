@@ -101,6 +101,17 @@ class EGS_Helpers
 			steps: 10
 			extrudePath: p
 	
+	@cubicPath = (l,w,p) ->
+		shape = new THREE.Shape()
+		shape.moveTo( 0,0 );
+		shape.lineTo( 0, w );
+		shape.lineTo( l, w );
+		shape.lineTo( l, 0 );
+		shape.lineTo( 0, 0 );
+		new THREE.ExtrudeGeometry shape,
+			steps: 100
+			extrudePath: p
+	
 	@threadCyl: (h) ->
 		if @DETAIL >= 16
 			o = 13

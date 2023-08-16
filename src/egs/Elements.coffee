@@ -8,6 +8,8 @@ Belag = require("./elements/Belag")
 HaengegeruestVerbinder = require("./elements/HaengegeruestVerbinder")
 Geruestrohr = require("./elements/Geruestrohr")
 Traverse = require("./elements/Traverse")
+Treppenwange = require("./elements/Treppenwange")
+Treppenstufen = require("./elements/Treppenstufen")
 
 class EGS_Elements
 	
@@ -102,6 +104,14 @@ class EGS_Elements
 			when "T600" then new Traverse 600, x, y, h, direction
 			when "T700" then new Traverse 700, x, y, h, direction
 			when "T800" then new Traverse 800, x, y, h, direction
+
+			when "TRWL100" then new Treppenwange 100, 'L', x, y, h, direction
+			when "TRWR100" then new Treppenwange 100, 'R', x, y, h, direction
+			when "TRWL200" then new Treppenwange 200, 'L', x, y, h, direction
+			when "TRWR200" then new Treppenwange 200, 'R', x, y, h, direction
+
+			when "TRS100" then new Treppenstufen 100, x, y, h, direction
+			when "TRS200" then new Treppenstufen 200, x, y, h, direction
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
 
