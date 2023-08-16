@@ -20,7 +20,7 @@ Backbone.sync = (method, model, options) ->
 
 DataSourceModel = require "models/DataSource"
 DataSourceListCollection = require "collections/DataSourceList"
-EGS_Elements = require 'egs/EGS_Elements'
+EGS_Elements = require 'egs/Elements'
 
 App = class MainApp extends Backbone.Router
 	view: {}
@@ -79,6 +79,8 @@ App = class MainApp extends Backbone.Router
 		@view.SecondaryNav = new SecondaryNavView @
 		DataSourceModal = require "views/DataSourceModal"
 		@view.DataSource = new DataSourceModal @
+		ToastsView = require "views/Toasts"
+		@view.ToastsView = new ToastsView
 		@view.EGS = new EGS @, 'display'
 
 		for i,v of @view
@@ -88,6 +90,7 @@ App = class MainApp extends Backbone.Router
 	start: ->
 		console.log "App start"
 		do Backbone.history.start
+		@view.ToastsView.alert null, 'App gestartet.', 'success'
 
 google = require "google"
 

@@ -54,7 +54,9 @@ module.exports = class DataSource extends Backbone.Model
 					if (firstDataRow and @dataTable.getValue(0, c) is @columns[k]) or @dataTable.getColumnLabel(c) is @columns[k]
 						d[k] = importer @dataTable.getValue r, c
 				if not d[k]
-					alert "Übersichtstabelle: Spalte '#{@columns[k]}' wurde nicht in der Tabelle gefunden!"
+					message = "Übersichtstabelle: Spalte '#{@columns[k]}' wurde nicht in der Tabelle gefunden!"
+					@app.view.ToastsView.alert null, message, 'error', {autohide: false}
+					throw new Error(message)
 					return
 			data.push d
 		
