@@ -1,4 +1,5 @@
 Backbone = require "backbone"
+THREE = require "THREE"
 
 module.exports = class extends Backbone.Model
 	app: null
@@ -6,5 +7,9 @@ module.exports = class extends Backbone.Model
 	initialize: (attributes, options) ->
 		super attributes, options
 		@app = options.collection.app
-		@geometry = @app.egsElementProvider.getGeometry @ 
+		try
+			@geometry = @app.egsElementProvider.getGeometry @
+		catch exception
+			console.warn(exception)
+			@geometry = new THREE.Geometry
 

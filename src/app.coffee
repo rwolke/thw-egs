@@ -20,7 +20,7 @@ Backbone.sync = (method, model, options) ->
 
 DataSourceModel = require "models/DataSource"
 DataSourceListCollection = require "collections/DataSourceList"
-EGS_Elements = require 'egs/EGS_Elements'
+EGS_Elements = require 'egs/Elements'
 
 App = class MainApp extends Backbone.Router
 	view: {}
