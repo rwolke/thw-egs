@@ -90,6 +90,7 @@ class EGS_Helpers
 			steps: 1
 			bevelEnabled: false
 			curveSegments: @DETAIL
+	
 	@cylinderPath: (o,i,p) ->
 		shape = new THREE.Shape()
 		shape.absarc 0, 0, o / 2, 0, @D360, true
