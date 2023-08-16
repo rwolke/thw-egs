@@ -130,6 +130,7 @@ Aktuell sind folgende Elemente implementiert:
 | KHxxx     | Kantholz (10x10) xxx cm lang       | nein                  | z.B. "RZ = 90 / RX = -45"                     |
 |           |                                    |                       | Bei Höhe 0 liegt das Kantholz auf den Belägen |
 |           |                                    |                       | Höhe -20 für Bodenhöhe                        |
+|           |                                    |                       | Vorgeschlagene Farbe: #A1662F                 |
 | BBS       | Betonblockstein (120 x 60 x 60 cm) | ja                    | Vorgeschlagene Farbe: #917f69                 |
 
 ### Daten ergänzen - eigene Konstruktionen
