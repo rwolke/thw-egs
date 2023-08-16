@@ -223,6 +223,8 @@ class EGS_View extends Backbone.View
 	stepper: 0
 	counter: 0
 	turnRate: 0
+	height: 0
+	heightRelation: 'abs'
 	bgColor: ''
 	
 	colorTable = []
@@ -231,20 +233,27 @@ class EGS_View extends Backbone.View
 		@turnRate = rate
 		@display.setTurnRate @turnRate
 		do @app.view.SecondaryNav.update
+		@_saveSetting('turnRate', @turnRate)
 	incrTurnRate: (value) ->
 		@turnRate = @turnRate + value
 		if (@turnRate < 0) then @turnRate = 0
 		@setTurnRate @turnRate
 	setHeight: (height, relation) ->
+		@height = height
+		@heightRelation = relation
 		@display.setHeight height, relation
 		do @app.view.SecondaryNav.update
+		@_saveSetting('height', @height)
+		@_saveSetting('heightRelation', @heightRelation)
 	setBackgroundColor: (color) ->
 		@bgColor = color
 		@display.setBackgroundColor @bgColor
 		do @app.view.SecondaryNav.update
+		@_saveSetting('bgColor', @bgColor)
 	setStepper: (value) ->
 		@stepper = value
 		do @app.view.SecondaryNav.update
+		@_saveSetting('stepper', @stepper)
 	setStep: (step) ->
 		@stepNo = step
 		console.log "Aufbauschritt: " + @steps[@stepNo] + " (index: " + @stepNo + ")"
@@ -256,9 +265,8 @@ class EGS_View extends Backbone.View
 		if (@stepNo < 0) then @stepNo = @steps.length - 1
 		@setStep @stepNo
 	resetView: ->
-		@setBackgroundColor '#ccc' 
-		@setTurnRate 2
-		@setHeight 1, 'rel'
+		do @_setDefaultSettings
+		do @_applySettings
 		do @app.view.SecondaryNav.update
 	
 	timeTrigger: ->
@@ -271,7 +279,9 @@ class EGS_View extends Backbone.View
 
 		setInterval (=> do @timeTrigger), 1000
 		@updateConstruct @stepNo
-		do @resetView 
+		do @_setDefaultSettings
+		do @_initSettings
+		do @_applySettings
 	
 	showConstruct: (construction) ->
 		@elements = [];
@@ -291,13 +301,43 @@ class EGS_View extends Backbone.View
 			@display.add e
 		
 		@updateConstruct @stepNo
-		do @resetView
 	
 	updateConstruct: (step) ->
 		@stepNo = step
 		for e in @elements
 			e.setStep parseInt @steps[@stepNo]
 		do @render
+
+	_setDefaultSettings: ->
+		@stepper = 0
+		@turnRate = 0
+		@height = 1
+		@heightRelation = 'rel'
+		@bgColor = '#ccc'
+
+	_applySettings: ->
+		@setStepper @stepper
+		@setTurnRate @turnRate
+		@setHeight @height, @heightRelation
+		@setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+
+	_initSettings: ->
+		@stepper = @_getSetting('stepper', @stepper)
+		@turnRate = @_getSetting('turnRate', @turnRate)
+		@height = @_getSetting('height', @height)
+		@heightRelation = @_getSetting('heightRelation', @heightRelation)
+		@bgColor = @_getSetting('bgColor', @bgColor)
+
+	_saveSetting: (key, val) ->
+		if window.localStorage
+			window.localStorage.setItem key, val
+	
+	_getSetting: (key, defVal) ->
+		if window.localStorage
+			if window.localStorage.getItem key
+				return window.localStorage.getItem key
+		return defVal
 		
 	_hexToRGB = (hex) ->
 		r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec hex
