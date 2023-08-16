@@ -11,6 +11,6 @@ module.exports = class extends Backbone.Model
 			@geometry = @app.egsElementProvider.getGeometry @
 		catch exception
 			console.warn(exception)
-			@app.view.ToastsView.alert null, exception.message, 'error', {autohide: false}
+			@app.view.ToastsView.alert null, attributes.element + ': ' + exception.message, 'error', {autohide: false}
 			@geometry = new THREE.Geometry
 

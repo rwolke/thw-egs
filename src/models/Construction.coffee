@@ -63,8 +63,9 @@ module.exports = class extends Backbone.Model
 		
 		for i,c of @fields
 			if not colTypes[i]?
-				console.log "Spalte '#{c.name}' nicht gefunden!"
-				return
+				message = "Spalte '#{c.name}' nicht gefunden!"
+				@app.view.ToastsView.alert null, message, 'error', {autohide: false}
+				throw new Error(message)
 		
 		data = []
 		for r in [0 ... @dataTable.getNumberOfRows()]

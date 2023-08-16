@@ -52,6 +52,6 @@ class EGS_Elements
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
 
-			else throw new Error('Unbekanntes Element: ' + name)
+			else throw new Error('Unbekanntes Element')
 	
 module.exports = EGS_Elements
