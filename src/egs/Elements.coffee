@@ -117,7 +117,7 @@ class EGS_Elements
 			when "TRS200" then new Treppenstufen 200, x, y, h, direction
 
 			when "HV" then new HaengegeruestVerbinder x, y, h, direction
-			when "BBS" then new Betonblockstein 120, 60, 60, x, y, h, direction
+			when "BBS" then new Betonblockstein 120, 60, 60, x, y, h, direction, special
 			when "EPAL" then new EuroPalette x, y, h, direction
 
 			else
