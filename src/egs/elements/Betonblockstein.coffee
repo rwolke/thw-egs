@@ -40,7 +40,7 @@ class Betonblockstein extends THREE.Geometry
 		k.applyMatrix4 Helpers.matrix(0,height/2,0)
 		#k.applyMatrix4 Helpers.matrix(length/2,height/2,width/2)
 	
-	constructor: (length, width, height, x, y, h, direction) ->
+	constructor: (length, width, height, x, y, h, direction, special) ->
 		super()
 
 		switch direction
@@ -51,6 +51,23 @@ class Betonblockstein extends THREE.Geometry
 			else throw new Error('Drehrichtung muss X, Y oder -X, -Y sein')
 
 		@merge @_Betonblockstein(10 * length, 10 * width, 10 * height)
+
+		if special
+			for b in special.split('/')
+				c = b.split('=')
+				if (c.length == 2)
+					switch c[0].trim()
+						when "RX"
+							rot = -1 * parseFloat(c[1].trim())
+							@applyMatrix4 Helpers.matrix(0, 0, 0, 'X', rot / 90)
+						when "RZ"
+							rot = -1 * parseFloat(c[1].trim())
+							@applyMatrix4 Helpers.matrix(0, 0, 0, 'Y', rot / 90)
+						when "RY"
+							rot = -1 * parseFloat(c[1].trim())
+							@applyMatrix4 Helpers.matrix(0, 0, 0, 'Z', rot / 90)
+						else throw new Error('Drehung muss RX, RY oder RZ sein')
+
 		
 		@applyMatrix4 Helpers.matrix(10*x, 10*h + 50, 10*y, 'Y', -direction)
 	
