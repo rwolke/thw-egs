@@ -69,36 +69,42 @@ class Display
 	camHeight: 0
 	camHeightOffset: 0
 	
+	canvas: null
 	scene: null
 	renderer: null
 	camera: null
 	controls: null
+
+	exportImageSnapshot: false
+	exportImageBackgroundTransparent = false
 	
 	animationRequest: null
 	
 	_addRenderer: (domElementID)->
 		hasWebGL = false
 		try
-			canvas = document.createElement 'canvas' 
+			@canvas = document.createElement 'canvas' 
 			hasWebGL = !! ( window.WebGLRenderingContext && 
-				( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) )
+				( @canvas.getContext( 'webgl' ) || @canvas.getContext( 'experimental-webgl' ) )
 			)
 	
 		if hasWebGL
 			@renderer = new THREE.WebGLRenderer
 				antialias: true
+				alpha: true
 		else
 			@renderer = new THREE.CanvasRenderer()
 		@renderer.setPixelRatio window.devicePixelRatio
 		@renderer.setSize window.innerWidth, window.innerHeight
-		document.getElementById(domElementID).appendChild @renderer.domElement
+		@canvas = @renderer.domElement
+		document.getElementById(domElementID).appendChild @canvas
 	
+	_setBackgroundColor: (color) ->
+		@scene.background = new THREE.Color( color )
+
 	_addLights: ->
-		hemiLight = new THREE.HemisphereLight 0xffffff, 0xffffff, 0.6
-		hemiLight.color.setHSL 0.6, 1, 0.6
-		hemiLight.groundColor.setHSL 0.095, 1, 0.75
-		hemiLight.position.set 0, 500, 0
-		@scene.add hemiLight
+		ambiLight = new THREE.AmbientLight( 0xffffff, 0.6 )
+		@scene.add ambiLight
 
 		dirLight = new THREE.DirectionalLight 0xffffff, 1
 		dirLight.color.setHSL 0.1, 1, 0.95
@@ -140,7 +146,19 @@ class Display
 	_animationFrame: ->
 		@animationRequest = window.requestAnimationFrame (=> do @_animationFrame )
 		do @calcCamPos
+
+		if (@exportImageSnapshot && @exportImageBackgroundTransparent)
+			bgColor = @scene.background
+			@scene.background = null
+
 		@renderer.render @scene, @camera
+
+		if (@exportImageSnapshot && @exportImageBackgroundTransparent)
+			@scene.background = bgColor
+			
+		if (@exportImageSnapshot)
+			do @createImage
+			@exportImageSnapshot = false
 	
 	constructor: (@domElementID) ->
 		@scene = new THREE.Scene
@@ -152,10 +170,11 @@ class Display
 		do @onWindowResize
 		do @_animationStart
 		
-	
 	resetView: ->
-		@center = do @bbox.center
-		size = do @bbox.size
+		@center = new THREE.Vector3();
+		@center = @bbox.getCenter @center
+		size = new THREE.Vector3();
+		size = @bbox.getSize size
 		
 		fovH = @camera.fov / 180 * Math.PI * 80 / 100
 		@camDistance = Math.max.apply Math, [
@@ -169,6 +188,25 @@ class Display
 		
 		@controls.target.copy @center
 	
+	createImage: ->
+		url = @canvas.toDataURL 'image/png'
+
+		link = document.createElement 'a'
+
+		link.setAttribute 'href', url
+		link.setAttribute 'target', '_blank'
+		link.setAttribute 'download', 'export.png'
+
+		do link.click
+	
+	exportImage: ->
+		@exportImageSnapshot = true
+		@exportImageBackgroundTransparent = false
+
+	exportImageTransparent: ->
+		@exportImageSnapshot = true
+		@exportImageBackgroundTransparent = true
+
 	removeAll: ->
 		@scene.remove @scene.children[0] while @scene.children.length
 		do @_addLights
@@ -197,6 +235,7 @@ class Display
 			when "incr" then @camHeight + 10 * height
 			when "rel" then 2 * @center.y * height
 			else @camHeight
+		@calcCamPos true
 	
 	calcCamPos: (override) ->
 		if override
@@ -210,23 +249,80 @@ class Display
 		@camera.position.y = @camHeight
 		@camera.position.z = @center.z + Math.cos(2 * Math.PI * turnIndex) * ( @camDistance + @camDistanceOffset )
 		@camera.lookAt @center
+	
+	setBackgroundColor: (color) ->
+		@_setBackgroundColor color
 
 class EGS_View extends Backbone.View
 	elements: []
 	steps: []
 	stepNo: 0
+	stepper: 0
+	counter: 0
+	turnRate: 0
+	height: 0
+	heightRelation: 'abs'
+	bgColor: ''
 	
 	colorTable = []
 	
 	setTurnRate: (rate) ->
-		@display.setTurnRate Math.max 0, rate
+		@turnRate = rate
+		@display.setTurnRate @turnRate
+		do @app.view.SecondaryNav.update
+		@_saveSetting('turnRate', @turnRate)
+	incrTurnRate: (value) ->
+		@turnRate = @turnRate + value
+		if (@turnRate < 0) then @turnRate = 0
+		@setTurnRate @turnRate
 	setHeight: (height, relation) ->
+		@height = height
+		@heightRelation = relation
 		@display.setHeight height, relation
+		do @app.view.SecondaryNav.update
+		@_saveSetting('height', @height)
+		@_saveSetting('heightRelation', @heightRelation)
+	setBackgroundColor: (color) ->
+		@bgColor = color
+		@display.setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+		@_saveSetting('bgColor', @bgColor)
+	setStepper: (value) ->
+		@stepper = value
+		do @app.view.SecondaryNav.update
+		@_saveSetting('stepper', @stepper)
+	setStep: (step) ->
+		@stepNo = step
+		console.log "Aufbauschritt: " + @steps[@stepNo] + " (index: " + @stepNo + ")"
+		@updateConstruct @stepNo
+		do @app.view.SecondaryNav.update
+	incrStep: (value) ->
+		@stepNo = @stepNo + value
+		if (@stepNo >= @steps.length) then @stepNo = 0
+		if (@stepNo < 0) then @stepNo = @steps.length - 1
+		@setStep @stepNo
 	resetView: ->
-		do @display.resetView
+		do @_setDefaultSettings
+		do @_applySettings
+		do @app.view.SecondaryNav.update
+	exportImage: ->
+		do @display.exportImage
+	exportImageTransparent: ->
+		do @display.exportImageTransparent
+	
+	timeTrigger: ->
+		@incrStep 1 if @stepper and ++@counter %% @stepper is 0
+		do @app.view.SecondaryNav.update
 	
 	constructor: (@app, @domElementID) ->
+		super()
 		@display = new Display @domElementID
+
+		setInterval (=> do @timeTrigger), 1000
+		@updateConstruct @stepNo
+		do @_setDefaultSettings
+		do @_initSettings
+		do @_applySettings
 	
 	showConstruct: (construction) ->
 		@elements = [];
@@ -238,20 +334,52 @@ class EGS_View extends Backbone.View
 		
 		@steps = @steps.filter (v,i,x) -> i is x.indexOf v 
 		@steps.sort (a,b) -> a-b
+		@stepNo = @steps.length - 1
 		
-		@app.view.SecondaryNav.setSteps @steps
-		
+		do @app.view.SecondaryNav.render
 		do @display.removeAll
 		for e in @elements
 			@display.add e
 		
 		@updateConstruct @stepNo
+		@display.calcCamPos true
 	
 	updateConstruct: (step) ->
 		@stepNo = step
 		for e in @elements
 			e.setStep parseInt @steps[@stepNo]
 		do @render
+
+	_setDefaultSettings: ->
+		@stepper = 0
+		@turnRate = 0
+		@height = 1
+		@heightRelation = 'rel'
+		@bgColor = '#ccc'
+
+	_applySettings: ->
+		@setStepper @stepper
+		@setTurnRate @turnRate
+		@setHeight @height, @heightRelation
+		@setBackgroundColor @bgColor
+		do @app.view.SecondaryNav.update
+
+	_initSettings: ->
+		@stepper = parseInt(@_getSetting('stepper', @stepper))
+		@turnRate = parseInt(@_getSetting('turnRate', @turnRate))
+		@height = parseInt(@_getSetting('height', @height))
+		@heightRelation = @_getSetting('heightRelation', @heightRelation)
+		@bgColor = @_getSetting('bgColor', @bgColor)
+
+	_saveSetting: (key, val) ->
+		if window.localStorage
+			window.localStorage.setItem key, val
+	
+	_getSetting: (key, defVal) ->
+		if window.localStorage
+			if window.localStorage.getItem key
+				return window.localStorage.getItem key
+		return defVal
 		
 	_hexToRGB = (hex) ->
 		r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec hex
