@@ -4,6 +4,12 @@ Diese WebApp visualisiert den Aufbau von EGS Konstruktionen.
 
 Die WebApp ist erreichbar unter [http://visualisierung.thw-egs.de](http://visualisierung.thw-egs.de)
 
+## Projektübernahme
+
+Dieses Repository ist eine Übernahme des ursprünglichen Projekts von [Robert Wolke](https://github.com/rwolke/thw-egs). Das ursprüngliche Projekt wurde seit 2019 nicht aktualisiert und Anfragen im Issue Tracker sowie Pull Requests blieben unbeantwortet.
+
+Neben Fehlerbehebungen wurden auch neue Funktionen hinzugefügt.
+
 ## Zweck und Nutzen
 
 Der Aufbau von Gerüstkonstuktionen ist nicht immer trivial, deshalb kann eine Visualsierung die theoretische Ausbildung unterstützen. Der Aufbau kann in eine Vielzahl von Schritten zerlegt und Bauteile farblich hervorgehoben werden. Die automatische Rotation bzw. die manuelle Betrachtung von allen Seiten erlauben ein schnelleres Verständnis.
@@ -32,19 +38,19 @@ Beispieldatei: https://docs.google.com/spreadsheets/d/1z0wPbfVoUCu6buGLWJPDcxtES
 
 Der Aufbau nach diesem Schema sollte überwiegend selbsterklärend sein, deshalb hier nur einige Stichpunkte:
 
-- Konstruktionsliste - gid-Spalte: Die **gid** ist die Zahl, die in der Adresszeile bei jedem Tabellenblatt angezeigt wird. Über diese Ziffernfolge erfährt das Programm aus welchem Blatt die Konstruktion geladen werden soll. Dies geschieht nicht über den Namen des Blattes!
-- Konstruktion - Anzeige: Diese Spalte gibt an bei welchen Schritten das Element angezeigt werden soll, und ggf. in welcher besonderen Farbe. Sie hat folgenden Aufbau (RegExp-Format) VON(-BIS)?(:#farbe)?(,VON(-BIS)?(:#farbe)?)\* zum Beispiel:
-  - "1" - Zeige dieses Elemente nur in Schritt 1
-  - "1-3" - Zeige dieses Element in den Schritten 1 bis 3
-  - "1-3,5-" - Zeige dieses Element in den Schritten 1 bis 3 und ab 5 (bis zum Ende)
-  - "2-3:#fff,4-" - Zeige dieses Element in den Schritten 2 und 3 in der Farbe Weiß (#fff), ab 4 in der normalen Farbe
-- Konstruktion - Farbe: Diese Spalte muss eine Farbangabe im [langen oder kurzen hexadezimalen Format](https://de.wikipedia.org/wiki/Hexadezimale_Farbdefinition) enthalten.
-- Konstruktion - Element siehe _Liste der gülten Elemente_
-- Konstruktion - Richtung: In welche Richtung z.B. ein Riegel gehen soll
-- Konstruktion - Besonderheit:
-  - V - Vertikalstiel: hier kann _oRV_ eingetragen werden, wenn der Vertikalstiel keinen Rohrverbinder haben soll.
-  - D - Diagonale: bei einer Diagonale gibt _neg_ oder _pos_ an auf welcher Seite diese angebaut werden soll.
-  - B - Breiten: Welche Breiten an Belägen hier eingebaut werden sollen (_32_ cm oder _24_ cm)
+-   Konstruktionsliste - gid-Spalte: Die **gid** ist die Zahl, die in der Adresszeile bei jedem Tabellenblatt angezeigt wird. Über diese Ziffernfolge erfährt das Programm aus welchem Blatt die Konstruktion geladen werden soll. Dies geschieht nicht über den Namen des Blattes!
+-   Konstruktion - Anzeige: Diese Spalte gibt an bei welchen Schritten das Element angezeigt werden soll, und ggf. in welcher besonderen Farbe. Sie hat folgenden Aufbau (RegExp-Format) VON(-BIS)?(:#farbe)?(,VON(-BIS)?(:#farbe)?)\* zum Beispiel:
+    -   "1" - Zeige dieses Elemente nur in Schritt 1
+    -   "1-3" - Zeige dieses Element in den Schritten 1 bis 3
+    -   "1-3,5-" - Zeige dieses Element in den Schritten 1 bis 3 und ab 5 (bis zum Ende)
+    -   "2-3:#fff,4-" - Zeige dieses Element in den Schritten 2 und 3 in der Farbe Weiß (#fff), ab 4 in der normalen Farbe
+-   Konstruktion - Farbe: Diese Spalte muss eine Farbangabe im [langen oder kurzen hexadezimalen Format](https://de.wikipedia.org/wiki/Hexadezimale_Farbdefinition) enthalten.
+-   Konstruktion - Element siehe _Liste der gülten Elemente_
+-   Konstruktion - Richtung: In welche Richtung z.B. ein Riegel gehen soll
+-   Konstruktion - Besonderheit:
+    -   V - Vertikalstiel: hier kann _oRV_ eingetragen werden, wenn der Vertikalstiel keinen Rohrverbinder haben soll.
+    -   D - Diagonale: bei einer Diagonale gibt _neg_ oder _pos_ an auf welcher Seite diese angebaut werden soll.
+    -   B - Breiten: Welche Breiten an Belägen hier eingebaut werden sollen (_32_ cm oder _24_ cm)
 
 ### Liste der gültigen Elemente
 
@@ -148,8 +154,8 @@ Aufgaben, Änderungswünsche und Bugs werden als [Issues](https://github.com/the
 
 ### eingesetzte Software
 
-- 3D-Darstellung: [ThreeJS](http://threejs.org/) und [ThreeJS Orbit Controls](https://github.com/mattdesl/three-orbit-controls)
-- Datenquelle: [Google Visualization API - DataTable](https://developers.google.com/chart/interactive/docs/reference)
-- Datenverwaltung [Backbone.JS](http://backbonejs.org/)
-- UI [Bootstrap](http://getbootstrap.com/)
-- Zusammenstellung: [Webpack](https://webpack.github.io/) und [Coffeescript](http://coffeescript.org/)
+-   3D-Darstellung: [ThreeJS](http://threejs.org/) und [ThreeJS Orbit Controls](https://github.com/mattdesl/three-orbit-controls)
+-   Datenquelle: [Google Visualization API - DataTable](https://developers.google.com/chart/interactive/docs/reference)
+-   Datenverwaltung [Backbone.JS](http://backbonejs.org/)
+-   UI [Bootstrap](http://getbootstrap.com/)
+-   Zusammenstellung: [Webpack](https://webpack.github.io/) und [Coffeescript](http://coffeescript.org/)
