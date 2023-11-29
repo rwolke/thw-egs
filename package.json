@@ -1,6 +1,6 @@
 {
 	"name": "thw-egs",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Visualization of EGS constructions",
 	"private": true,
 	"scripts": {
